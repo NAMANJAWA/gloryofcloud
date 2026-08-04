@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#09050A">
+<meta name="theme-color" content="#FBF3E3">
 <title>Badal &amp; Mahima — शुभ विवाह</title>
-<meta name="description" content="Badal weds Mahima — Monday, 23 November 2026, Omi Lala Farm House, Chandausi. An invitation to seven vows and seven lifetimes.">
+<meta name="description" content="Badal weds Mahima — Tuesday, 24 November 2026, Omi Lala Farm House, Chandausi. An invitation to seven vows and seven lifetimes.">
 
 <meta property="og:title" content="Badal &amp; Mahima — Shubh Vivah">
-<meta property="og:description" content="Seven vows. Seven lifetimes. One bond. 23 November 2026 · Chandausi.">
+<meta property="og:description" content="Seven vows. Seven lifetimes. One bond. 24 November 2026 · Chandausi.">
 <meta property="og:type" content="website">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Marcellus&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Noto+Serif+Devanagari:wght@300;400;500&display=swap" rel="stylesheet">
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2309050A'/%3E%3Ctext x='50' y='72' font-size='68' text-anchor='middle' fill='%23D4A24C' font-family='serif'%3E%E0%A5%90%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23FBF3E3'/%3E%3Ctext x='50' y='72' font-size='68' text-anchor='middle' fill='%237A5220' font-family='serif'%3E%E0%A5%90%3C/text%3E%3C/svg%3E">
 
 <!--
   ═══════════════════════════════════════════════════════════════════════
@@ -36,21 +36,41 @@
    1 · DESIGN TOKENS
    ══════════════════════════════════════════════════════════════════════ */
 :root{
-  --ink:#09050A;
-  --deep:#12070E;
-  --plum:#1D0E18;
-  --maroon:#4A0D1C;
-  --crimson:#8E1B2C;
-  --rose:#C9455F;
-  --marigold:#E08A2E;
-  --gold:#D4A24C;
-  --gold-l:#F4E0AC;
-  --gold-d:#8A6524;
+  /* ── LIGHT THEME ──
+     Hindu wedding tradition treats black as inauspicious and reads warm
+     ivory, gold and red as the "shubh" (auspicious) palette — so the whole
+     site was re-based from a near-black background to a cream one. --ink
+     and --ivory deliberately swapped ROLES rather than just values: --ink
+     is still "the base surface colour" (now cream) and --ivory is still
+     "the base text colour" (now a warm dark brown), so every existing
+     background:var(--ink) / color:var(--ivory) declaration below keeps
+     working without being touched individually. --gold/--gold-l/--gold-d
+     were retuned darker as a set, since the old --gold-l (a near-white
+     "shine" tone meant to pop off black) would nearly vanish on cream. */
+  --ink:#FBF3E3;
+  --deep:#F6E7CE;
+  --plum:#EFDABD;
+  --maroon:#6E1526;
+  --crimson:#9E2233;
+  --rose:#A8324A;
+  --marigold:#D97B1F;
+  /* re-darkened again: at the previous values --gold/--gold-l only hit
+     ~2.9:1 / ~2:1 contrast against the cream --ink — invisible-ish as
+     actual text (WCAG wants 4.5:1) even though they read fine as borders/
+     icons. All three now clear ~5:1+ so eyebrow labels, heading emphasis
+     and vow text are all comfortably legible, not just decoratively "gold". */
+  --gold:#8A5D26;
+  --gold-l:#9C6F2F;
+  --gold-d:#6B4718;
   --peacock:#0E5F63;
   --leaf:#2F6B4F;
-  --ivory:#FBF4E6;
-  --dim:rgba(251,244,230,.60);
-  --dimmer:rgba(251,244,230,.34);
+  --ivory:#2B140A;
+  /* --dimmer at .36 alpha only reached ~2.2:1 against cream — opacity
+     that reads as "faded" against black pulls a DARK colour toward a
+     LIGHT background, which erodes contrast instead of adding it. Both
+     bumped opaque enough to clear ~5:1+. */
+  --dim:rgba(43,20,10,.70);
+  --dimmer:rgba(43,20,10,.64);
 
   --serif:'Cormorant Garamond',Georgia,serif;
   --display:'Playfair Display',Georgia,serif;
@@ -98,7 +118,7 @@ body{
 }
 body.locked{overflow:hidden;height:100vh;height:100dvh}
 
-::selection{background:var(--gold);color:var(--ink)}
+::selection{background:var(--gold);color:var(--ivory)}
 
 img,svg{display:block;max-width:100%}
 button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
@@ -135,7 +155,7 @@ a{color:inherit}
   font-family:var(--deva);
   font-size:.95rem;
   letter-spacing:.06em;
-  color:rgba(212,162,76,.7);
+  color:var(--gold-d);
   margin-bottom:6px;
 }
 .title{
@@ -213,7 +233,7 @@ a{color:inherit}
 
 #vignette{
   position:fixed;inset:0;z-index:55;pointer-events:none;
-  background:radial-gradient(ellipse at 50% 45%,transparent 40%,rgba(9,5,10,.55) 100%);
+  background:radial-gradient(ellipse at 50% 45%,transparent 40%,rgba(43,20,10,.12) 100%);
 }
 
 /* glow that intensifies as diyas are lit */
@@ -265,7 +285,7 @@ a{color:inherit}
 .loader-cap{
   margin-top:22px;
   font-family:var(--caps);font-size:.6rem;letter-spacing:.5em;
-  text-transform:uppercase;color:rgba(212,162,76,.65);
+  text-transform:uppercase;color:var(--gold-d);
   opacity:0;animation:fade 1.2s ease 1.6s forwards;
 }
 @keyframes fade{to{opacity:1}}
@@ -278,7 +298,7 @@ a{color:inherit}
   display:grid;place-items:center;
   overflow:hidden;
   background:
-    radial-gradient(ellipse at 50% 40%,#2A0D18 0%,var(--ink) 62%);
+    radial-gradient(ellipse at 50% 40%,#F4DFB8 0%,var(--ink) 62%);
   perspective:1400px;
   transition:opacity 1.1s var(--ease-soft),visibility 1.1s;
   padding:24px;
@@ -289,7 +309,7 @@ a{color:inherit}
   position:absolute;width:150vmax;height:150vmax;
   opacity:.16;
   background:repeating-conic-gradient(from 0deg,
-    transparent 0 6deg,rgba(212,162,76,.5) 6deg 6.7deg,transparent 6.7deg 18deg);
+    transparent 0 6deg,rgba(184,134,60,.5) 6deg 6.7deg,transparent 6.7deg 18deg);
   animation:slow-spin 90s linear infinite;
   pointer-events:none;
 }
@@ -321,20 +341,78 @@ a{color:inherit}
    as it rises past the envelope's top edge. */
 .env-card{
   position:absolute;left:5%;right:5%;top:8%;bottom:8%;
-  background:linear-gradient(170deg,#FDF8EC,#F0E4C8);
+  background:
+    radial-gradient(ellipse 90% 60% at 50% -8%,rgba(212,162,76,.20),transparent 58%),
+    radial-gradient(ellipse 80% 50% at 50% 108%,rgba(216,165,90,.12),transparent 62%),
+    linear-gradient(170deg,#FDF8EC,#F0E4C8);
   transform:translateZ(-1px);
   display:grid;place-items:center;text-align:center;
-  padding:18px;
-  box-shadow:0 10px 30px rgba(0,0,0,.5);
+  padding:clamp(16px,5%,24px);
+  box-shadow:0 10px 30px rgba(0,0,0,.5),inset 0 0 0 1px rgba(212,162,76,.22);
   transition:transform 1.3s var(--ease) .3s,opacity .7s ease 1.25s;
 }
-.env.opened .env-card{transform:translateZ(-1px) translateY(-124%) rotateX(6deg);opacity:0}
+.env.opened .env-card{transform:translateZ(-1px) translateY(-52%) rotateX(4deg);opacity:0}
+/* short viewports (a typical laptop browser window) leave much less
+   headroom above the vertically-centred envelope than a tall phone screen —
+   without this the card's rise-distance (a % of its OWN height) pushes it
+   above y=0, off the top of the page, before anyone reads the date */
+@media (max-height:700px){
+  .env.opened .env-card{transform:translateZ(-1px) translateY(-38%) rotateX(4deg)}
+}
+
+/* plain gold corner brackets — no clip-path, no external SVG reference:
+   both proved unreliable here (clip-path on a card living inside the
+   envelope's 3D/preserve-3d stack broke its layering; the sprite <use>
+   icons failed to resolve), so this is deliberately the simplest possible
+   CSS that still reads as an ornamental frame. */
+.env-card .cc{
+  position:absolute;width:16px;height:16px;
+  border:1px solid var(--gold-d);opacity:.8;pointer-events:none;
+}
+.env-card .cc.tl{top:7px;left:7px;border-right:none;border-bottom:none}
+.env-card .cc.tr{top:7px;right:7px;border-left:none;border-bottom:none}
+.env-card .cc.bl{bottom:7px;left:7px;border-right:none;border-top:none}
+.env-card .cc.br{bottom:7px;right:7px;border-left:none;border-top:none}
+
+.env-card-in{position:relative}
+
 .env-card-deva{font-family:var(--deva);font-size:.8rem;color:var(--crimson);letter-spacing:.04em}
 .env-card-names{
+  display:flex;align-items:center;justify-content:center;flex-wrap:wrap;
+  gap:clamp(4px,1.8vw,10px);
   font-family:var(--display);font-style:italic;
-  font-size:clamp(1.5rem,5.4vw,2.1rem);color:var(--maroon);line-height:1.15;margin:6px 0;
+  font-size:clamp(1.3rem,5vw,1.9rem);color:var(--maroon);line-height:1.1;margin:8px 0 0;
 }
-.env-card-sub{font-family:var(--caps);font-size:.55rem;letter-spacing:.34em;text-transform:uppercase;color:var(--gold-d)}
+.env-card-amp{font-size:.7em;color:var(--gold-d)}
+
+.env-card-rule{width:clamp(64px,42%,110px);height:10px;margin:8px auto 10px;position:relative}
+.env-card-rule::before,.env-card-rule::after{
+  content:'';position:absolute;top:5px;height:1px;width:calc(50% - 7px);
+  background:linear-gradient(90deg,transparent,var(--gold-d));
+}
+.env-card-rule::before{left:0}
+.env-card-rule::after{right:0;transform:scaleX(-1)}
+.env-card-rule i{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(45deg);
+  width:6px;height:6px;border:1px solid var(--gold-d);
+}
+.env-card-rule i::after{content:'';position:absolute;inset:1.5px;background:var(--gold-d)}
+
+/* the date — the one thing on this card that must read instantly */
+.ecd-dow{
+  display:block;font-family:var(--caps);font-size:.62rem;letter-spacing:.34em;
+  text-transform:uppercase;color:var(--gold-d);margin-bottom:6px;
+}
+.ecd-row{display:flex;align-items:baseline;justify-content:center;gap:clamp(8px,2.4vw,14px)}
+.ecd-num{
+  font-family:var(--display);font-weight:500;
+  font-size:clamp(2rem,7.5vw,2.7rem);line-height:1;color:var(--crimson);
+}
+.ecd-my{
+  font-family:var(--caps);font-size:clamp(.64rem,2vw,.76rem);
+  letter-spacing:.16em;text-transform:uppercase;color:var(--maroon);
+  line-height:1.55;text-align:left;
+}
 
 /* Pocket + flap are both full-size boxes clipped to shape, so every
    percentage in the clip-paths refers to the same envelope geometry.
@@ -389,7 +467,7 @@ a{color:inherit}
 .portal-hint{
   position:absolute;bottom:9vh;left:0;right:0;text-align:center;
   font-family:var(--caps);font-size:.6rem;letter-spacing:.42em;
-  text-transform:uppercase;color:rgba(212,162,76,.75);
+  text-transform:uppercase;color:var(--gold-d);
   animation:hint-breathe 2.6s ease-in-out infinite;
 }
 @keyframes hint-breathe{0%,100%{opacity:.4}50%{opacity:1}}
@@ -418,7 +496,7 @@ body.entered .chrome{opacity:1}
 }
 #nav a::before{
   content:'';position:absolute;inset:0;border-radius:50%;
-  border:1px solid rgba(212,162,76,.5);
+  border:1px solid rgba(122,82,32,.5);
   transition:all .4s var(--ease);
 }
 #nav a.on::before{
@@ -443,11 +521,11 @@ body.entered .chrome{opacity:1}
 }
 #thread::before{
   content:'';position:absolute;top:0;bottom:0;width:1px;
-  background:linear-gradient(180deg,transparent,rgba(212,162,76,.3) 8%,rgba(212,162,76,.3) 92%,transparent);
+  background:linear-gradient(180deg,transparent,rgba(122,82,32,.3) 8%,rgba(122,82,32,.3) 92%,transparent);
 }
 #thread b{
   position:relative;width:7px;height:7px;border-radius:50%;
-  background:#1E1216;border:1px solid rgba(212,162,76,.35);
+  background:#EFDABD;border:1px solid rgba(122,82,32,.4);
   transition:all .5s var(--ease);
 }
 #thread b.on{
@@ -457,14 +535,14 @@ body.entered .chrome{opacity:1}
 }
 #thread .pendant{
   width:16px;height:16px;border-radius:50%;
-  border:1px solid rgba(212,162,76,.4);
+  border:1px solid rgba(122,82,32,.4);
   display:grid;place-items:center;
-  font-family:var(--deva);font-size:.5rem;color:rgba(212,162,76,.4);
+  font-family:var(--deva);font-size:.5rem;color:rgba(122,82,32,.4);
   background:var(--ink);position:relative;
   transition:all .6s var(--ease);
 }
 #thread .pendant.on{
-  color:var(--ink);background:var(--gold);
+  color:var(--ivory);background:var(--gold);
   box-shadow:0 0 22px rgba(212,162,76,.9);transform:scale(1.15);
 }
 
@@ -472,8 +550,8 @@ body.entered .chrome{opacity:1}
 #audio-btn{
   position:fixed;right:max(22px,env(safe-area-inset-right));bottom:max(22px,env(safe-area-inset-bottom));z-index:52;
   width:48px;height:48px;border-radius:50%;
-  border:1px solid rgba(212,162,76,.4);
-  background:rgba(9,5,10,.75);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  border:1px solid rgba(122,82,32,.4);
+  background:rgba(251,243,227,.82);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
   display:grid;place-items:center;
   transition:all .4s var(--ease);
 }
@@ -496,18 +574,18 @@ body.entered .chrome{opacity:1}
 #lang-btn{
   position:fixed;left:max(22px,env(safe-area-inset-left));bottom:max(22px,env(safe-area-inset-bottom));z-index:52;
   display:flex;border-radius:20px;overflow:hidden;
-  border:1px solid rgba(212,162,76,.4);
-  background:rgba(9,5,10,.75);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  border:1px solid rgba(122,82,32,.4);
+  background:rgba(251,243,227,.82);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
   transition:border-color .4s var(--ease);
 }
 #lang-btn:hover{border-color:var(--gold)}
 #lang-btn button{
   padding:13px 15px;font-family:var(--caps);font-size:.58rem;letter-spacing:.1em;
-  color:rgba(251,244,230,.5);transition:all .3s var(--ease);
+  color:var(--dimmer);transition:all .3s var(--ease);
 }
 html[data-lang="hi"] #lang-btn button[data-set-lang="hi"],
 html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
-  color:var(--ink);background:var(--gold);
+  color:var(--ivory);background:var(--gold);
 }
 
 /* mobile top progress */
@@ -546,8 +624,8 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   padding:clamp(52px,8vh,86px) var(--pad);
   overflow:hidden;
   background:
-    radial-gradient(ellipse 90% 60% at 50% 14%,rgba(142,27,44,.42),transparent 62%),
-    radial-gradient(ellipse 70% 50% at 50% 100%,rgba(74,13,28,.5),transparent 70%),
+    radial-gradient(ellipse 90% 60% at 50% 14%,rgba(216,165,90,.42),transparent 62%),
+    radial-gradient(ellipse 70% 50% at 50% 100%,rgba(216,165,90,.5),transparent 70%),
     var(--ink);
 }
 
@@ -576,19 +654,19 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 .frame{
   position:absolute;inset:clamp(12px,2.4vw,26px);
   pointer-events:none;
-  border:1px solid rgba(212,162,76,.26);
+  border:1px solid rgba(122,82,32,.3);
   clip-path:polygon(22px 0,calc(100% - 22px) 0,100% 22px,100% calc(100% - 22px),
     calc(100% - 22px) 100%,22px 100%,0 calc(100% - 22px),0 22px);
   animation:frame-glow 5s ease-in-out infinite alternate;
 }
 .frame.inner{
   inset:clamp(20px,3.4vw,38px);
-  border-color:rgba(212,162,76,.13);
+  border-color:rgba(122,82,32,.16);
   animation-delay:-2.5s;
 }
 @keyframes frame-glow{
-  0%{box-shadow:inset 0 0 30px rgba(212,162,76,.04)}
-  100%{box-shadow:inset 0 0 90px rgba(212,162,76,.14)}
+  0%{box-shadow:inset 0 0 30px rgba(122,82,32,.05)}
+  100%{box-shadow:inset 0 0 90px rgba(122,82,32,.16)}
 }
 
 .corner{
@@ -646,10 +724,10 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 }
 .names .n{
   font-size:clamp(2.9rem,9vw,7.2rem);
-  background:linear-gradient(178deg,#FFFDF7 8%,var(--gold-l) 42%,var(--gold) 66%,#A87C2E 100%);
+  background:linear-gradient(178deg,#8A1420 0%,#9E2233 45%,#6B4718 100%);
   -webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;
-  filter:drop-shadow(0 6px 26px rgba(212,162,76,.22));
+  filter:drop-shadow(0 6px 26px rgba(107,71,24,.22));
 }
 .names .knot{
   flex-shrink:0;
@@ -663,7 +741,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 .names-deva{
   font-family:var(--deva);
   font-size:clamp(.85rem,2.6vw,1.05rem);
-  color:rgba(212,162,76,.72);
+  color:var(--gold-d);
   letter-spacing:.16em;
   margin-top:8px;
 }
@@ -706,13 +784,13 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   transform:translateY(101%);
   transition:transform .5s var(--ease);
 }
-.btn:hover{color:var(--ink);transform:translateY(-2px)}
+.btn:hover{color:var(--ivory);transform:translateY(-2px)}
 .btn:hover::before{transform:translateY(0)}
 .btn.solid{
   background:linear-gradient(135deg,var(--crimson),var(--maroon));
   color:var(--gold-l);
 }
-.btn.solid:hover{color:var(--ink)}
+.btn.solid:hover{color:var(--ivory)}
 .btn svg{width:14px;height:14px;flex-shrink:0}
 
 .scroll-cue{
@@ -722,7 +800,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 }
 .scroll-cue span{
   font-family:var(--caps);font-size:.55rem;letter-spacing:.34em;
-  text-transform:uppercase;color:rgba(212,162,76,.8);
+  text-transform:uppercase;color:var(--gold-d);
 }
 .scroll-cue .line{
   width:1px;height:44px;
@@ -811,7 +889,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 <div id="loader">
   <div class="loader-in">
     <div class="loader-mandala">
-      <svg viewBox="0 0 200 200" fill="none" stroke="#D4A24C">
+      <svg viewBox="0 0 200 200" fill="none" stroke="#7A5220">
         <circle cx="100" cy="100" r="94" stroke-width=".5" opacity=".35"/>
         <circle cx="100" cy="100" r="80" stroke-width=".8" opacity=".55"/>
         <circle cx="100" cy="100" r="52" stroke-width=".8" opacity=".55"/>
@@ -845,10 +923,18 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   <div class="env" id="env">
     <div class="env-body"></div>
     <div class="env-card">
-      <div>
+      <i class="cc tl"></i><i class="cc tr"></i><i class="cc bl"></i><i class="cc br"></i>
+      <div class="env-card-in">
         <div class="env-card-deva">॥ श्री गणेशाय नमः ॥</div>
-        <div class="env-card-names">Badal<br><em style="font-size:.62em">&amp;</em><br>Mahima</div>
-        <div class="env-card-sub">23 · xi · mmxxvi</div>
+        <div class="env-card-names">
+          <span>Badal</span><em class="env-card-amp">&amp;</em><span>Mahima</span>
+        </div>
+        <div class="env-card-rule"><i></i></div>
+        <div class="ecd-dow">Tuesday</div>
+        <div class="ecd-row">
+          <span class="ecd-num">24</span>
+          <span class="ecd-my">November<br>2026</span>
+        </div>
       </div>
     </div>
     <div class="env-front"></div>
@@ -863,7 +949,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
    9 · INVOCATION + THE NINE DIYAS
    ══════════════════════════════════════════════════════════════════════ */
 #invocation{
-  background:linear-gradient(180deg,var(--ink),#160810 45%,var(--ink));
+  background:linear-gradient(180deg,var(--ink),#F2DEC4 45%,var(--ink));
   overflow:hidden;
 }
 .shlok{
@@ -919,7 +1005,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 
 .diya-hint{
   margin-top:30px;font-family:var(--caps);font-size:.6rem;
-  letter-spacing:.34em;text-transform:uppercase;color:rgba(212,162,76,.62);
+  letter-spacing:.34em;text-transform:uppercase;color:var(--gold-d);
   transition:opacity .5s;
 }
 .aarti-done{
@@ -935,7 +1021,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
    ══════════════════════════════════════════════════════════════════════ */
 #couple{
   background:
-    radial-gradient(ellipse 80% 50% at 50% 0%,rgba(74,13,28,.4),transparent 60%),
+    radial-gradient(ellipse 80% 50% at 50% 0%,rgba(216,165,90,.4),transparent 60%),
     var(--ink);
 }
 .couple-grid{
@@ -968,7 +1054,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 }
 .portrait .art{
   position:absolute;inset:0;border-radius:50%;overflow:hidden;
-  border:1px solid rgba(212,162,76,.6);
+  border:1px solid rgba(122,82,32,.6);
   box-shadow:0 24px 60px rgba(0,0,0,.6),inset 0 0 40px rgba(74,13,28,.5);
   transition:transform .6s var(--ease);
 }
@@ -977,19 +1063,19 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 .person-name{
   font-family:var(--display);font-size:clamp(1.9rem,5.2vw,2.7rem);
   font-style:italic;
-  background:linear-gradient(178deg,#FFFDF7,var(--gold-l) 45%,var(--gold));
+  background:linear-gradient(178deg,#8A1420 0%,#9E2233 45%,#6B4718 100%);
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
 }
-.person-deva{font-family:var(--deva);font-size:.9rem;color:rgba(212,162,76,.66);margin-top:2px}
+.person-deva{font-family:var(--deva);font-size:.9rem;color:var(--gold-d);margin-top:2px}
 .person-role{
   font-family:var(--caps);font-size:.58rem;letter-spacing:.4em;
   text-transform:uppercase;color:var(--rose);margin:12px 0 16px;
 }
 .person-fam{font-size:.96rem;color:var(--dim);line-height:1.95;font-style:italic}
-.person-fam b{font-style:normal;font-weight:400;color:rgba(251,244,230,.82)}
+.person-fam b{font-style:normal;font-weight:400;color:rgba(43,20,10,.82)}
 .person-quote{
   margin-top:18px;padding-top:16px;
-  border-top:1px solid rgba(212,162,76,.16);
+  border-top:1px solid rgba(122,82,32,.2);
   font-size:.92rem;color:var(--dimmer);font-style:italic;
 }
 
@@ -1005,13 +1091,13 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
    ══════════════════════════════════════════════════════════════════════ */
 #countdown{
   background:
-    radial-gradient(ellipse 70% 60% at 50% 50%,rgba(142,27,44,.3),transparent 65%),
+    radial-gradient(ellipse 70% 60% at 50% 50%,rgba(216,165,90,.3),transparent 65%),
     var(--deep);
   overflow:hidden;position:relative;
 }
 #countdown::before{
   content:'';position:absolute;inset:0;opacity:.5;
-  background-image:url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23D4A24C' stroke-opacity='.06'%3E%3Cpath d='M24 4 L44 24 L24 44 L4 24 Z'/%3E%3Ccircle cx='24' cy='24' r='4'/%3E%3C/g%3E%3C/svg%3E");
+  background-image:url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%237A5220' stroke-opacity='.08'%3E%3Cpath d='M24 4 L44 24 L24 44 L4 24 Z'/%3E%3Ccircle cx='24' cy='24' r='4'/%3E%3C/g%3E%3C/svg%3E");
 }
 .cd-grid{
   display:flex;justify-content:center;gap:clamp(10px,3.4vw,40px);
@@ -1020,11 +1106,11 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 .cd-unit{display:flex;flex-direction:column;align-items:center}
 .cd-ring{position:relative;width:clamp(78px,19vw,126px);aspect-ratio:1}
 .cd-ring svg{position:absolute;inset:0;transform:rotate(-90deg)}
-.cd-ring .track{fill:none;stroke:rgba(212,162,76,.13);stroke-width:2}
+.cd-ring .track{fill:none;stroke:rgba(122,82,32,.18);stroke-width:2}
 .cd-ring .prog{
-  fill:none;stroke:#D4A24C;stroke-width:2.5;stroke-linecap:round;
+  fill:none;stroke:#B8863C;stroke-width:2.5;stroke-linecap:round;
   transition:stroke-dashoffset .9s var(--ease-soft);
-  filter:drop-shadow(0 0 6px rgba(212,162,76,.6));
+  filter:drop-shadow(0 0 6px rgba(122,82,32,.6));
 }
 .cd-num{
   position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
@@ -1047,12 +1133,12 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   text-align:center;
 }
 .cd-label small{display:block;font-family:var(--deva);letter-spacing:0;
-  font-size:.72rem;color:rgba(212,162,76,.5);text-transform:none;margin-top:2px}
+  font-size:.72rem;color:var(--gold-d);text-transform:none;margin-top:2px}
 
 .muhurat{
   margin-top:46px;display:inline-flex;flex-direction:column;gap:4px;
-  padding:20px 34px;border:1px solid rgba(212,162,76,.22);
-  background:rgba(9,5,10,.5);position:relative;
+  padding:20px 34px;border:1px solid rgba(122,82,32,.3);
+  background:rgba(251,243,227,.62);position:relative;
 }
 .muhurat::before,.muhurat::after{
   content:'';position:absolute;width:9px;height:9px;border:1px solid var(--gold);
@@ -1062,13 +1148,13 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 .muhurat .k{font-family:var(--caps);font-size:.56rem;letter-spacing:.34em;
   text-transform:uppercase;color:var(--gold)}
 .muhurat .v{font-family:var(--display);font-size:1.25rem;color:var(--ivory)}
-.muhurat .s{font-family:var(--deva);font-size:.8rem;color:rgba(212,162,76,.6)}
+.muhurat .s{font-family:var(--deva);font-size:.8rem;color:var(--gold-d)}
 
 /* ══════════════════════════════════════════════════════════════════════
    13 · CEREMONIES
    ══════════════════════════════════════════════════════════════════════ */
 #ceremonies{
-  background:linear-gradient(180deg,var(--ink),#150711 50%,var(--ink));
+  background:linear-gradient(180deg,var(--ink),#F2DEC4 50%,var(--ink));
 }
 .cer-grid{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));
@@ -1076,26 +1162,26 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 }
 .cer{
   position:relative;
-  background:linear-gradient(160deg,rgba(142,27,44,.14),rgba(9,5,10,.9));
-  border:1px solid rgba(212,162,76,.2);
+  background:linear-gradient(160deg,rgba(216,165,90,.16),rgba(251,243,227,.94));
+  border:1px solid rgba(122,82,32,.25);
   overflow:hidden;
   transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .5s;
   will-change:transform;
 }
-.cer:hover{border-color:rgba(212,162,76,.6);box-shadow:0 30px 70px rgba(0,0,0,.6)}
+.cer:hover{border-color:rgba(122,82,32,.6);box-shadow:0 30px 70px rgba(0,0,0,.25)}
 .cer-art{position:relative;overflow:hidden;aspect-ratio:16/10}
 .cer-art svg{width:100%;height:100%;transition:transform .9s var(--ease)}
 .cer:hover .cer-art svg{transform:scale(1.07)}
 .cer-art::after{
   content:'';position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(180deg,transparent 45%,rgba(9,5,10,.9));
+  background:linear-gradient(180deg,transparent 45%,rgba(251,243,227,.94));
 }
 .cer-day{
   position:absolute;top:14px;left:14px;z-index:2;
-  padding:5px 12px;background:rgba(9,5,10,.75);
-  border:1px solid rgba(212,162,76,.35);
+  padding:5px 12px;background:rgba(251,243,227,.85);
+  border:1px solid rgba(122,82,32,.4);
   font-family:var(--caps);font-size:.52rem;letter-spacing:.28em;
-  text-transform:uppercase;color:var(--gold-l);
+  text-transform:uppercase;color:var(--gold-d);
 }
 .cer-body{padding:26px 24px 30px;position:relative;z-index:2}
 .cer-time{
@@ -1105,10 +1191,10 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 .cer-name{
   font-family:var(--display);font-size:1.35rem;color:var(--ivory);margin-bottom:2px;
 }
-.cer-deva{font-family:var(--deva);font-size:.82rem;color:rgba(212,162,76,.6);margin-bottom:12px}
+.cer-deva{font-family:var(--deva);font-size:.82rem;color:var(--gold-d);margin-bottom:12px}
 .cer-desc{font-size:.93rem;color:var(--dim);line-height:1.85;font-style:italic}
 .cer-dress{
-  margin-top:16px;padding-top:14px;border-top:1px solid rgba(212,162,76,.14);
+  margin-top:16px;padding-top:14px;border-top:1px solid rgba(122,82,32,.2);
   font-family:var(--caps);font-size:.54rem;letter-spacing:.22em;
   text-transform:uppercase;color:var(--dimmer);
 }
@@ -1149,16 +1235,16 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 }
 .vow.in{
   opacity:1;filter:none;
-  border-color:rgba(212,162,76,.16);
-  background:linear-gradient(100deg,rgba(142,27,44,.1),transparent 70%);
+  border-color:rgba(122,82,32,.25);
+  background:linear-gradient(100deg,rgba(216,165,90,.14),transparent 70%);
 }
 .vow-step{position:relative;width:64px}
 .vow-step svg{width:44px;color:var(--gold);opacity:.35;transition:all .8s var(--ease)}
-.vow.in .vow-step svg{opacity:1;filter:drop-shadow(0 0 10px rgba(212,162,76,.55))}
+.vow.in .vow-step svg{opacity:1;filter:drop-shadow(0 0 10px rgba(122,82,32,.5))}
 .vow-step b{
   position:absolute;right:2px;top:-4px;
   font-family:var(--display);font-size:1.5rem;font-style:italic;
-  color:rgba(212,162,76,.3);transition:color .8s;
+  color:rgba(122,82,32,.3);transition:color .8s;
 }
 .vow.in .vow-step b{color:var(--gold)}
 .vow-deva{font-family:var(--deva);font-size:.92rem;color:var(--gold-l);line-height:1.9}
@@ -1172,8 +1258,8 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 .venue-art svg{width:100%}
 .venue-card{
   max-width:920px;margin:0 auto;
-  border:1px solid rgba(212,162,76,.22);
-  background:rgba(15,8,13,.72);
+  border:1px solid rgba(122,82,32,.3);
+  background:rgba(246,231,206,.82);
   display:grid;grid-template-columns:1fr 1fr;
   overflow:hidden;
 }
@@ -1189,10 +1275,10 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   font-family:var(--display);font-size:clamp(1.5rem,3.6vw,2.1rem);
   color:var(--gold-l);line-height:1.2;
 }
-.venue-deva{font-family:var(--deva);font-size:.86rem;color:rgba(212,162,76,.6);margin-bottom:22px}
+.venue-deva{font-family:var(--deva);font-size:.86rem;color:var(--gold-d);margin-bottom:22px}
 .vrow{display:flex;gap:14px;margin-bottom:15px;align-items:flex-start}
 .vrow svg{width:16px;flex-shrink:0;margin-top:5px;color:var(--gold)}
-.vrow div{font-size:.96rem;color:rgba(251,244,230,.76);line-height:1.65}
+.vrow div{font-size:.96rem;color:rgba(43,20,10,.76);line-height:1.65}
 .vrow div b{display:block;font-family:var(--caps);font-size:.54rem;letter-spacing:.28em;
   text-transform:uppercase;color:var(--gold);margin-bottom:2px;font-weight:400}
 .venue-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
@@ -1203,8 +1289,8 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   gap:18px;max-width:920px;margin:26px auto 0;
 }
 .travel-c{
-  padding:22px;border:1px solid rgba(212,162,76,.14);
-  background:rgba(9,5,10,.4);
+  padding:22px;border:1px solid rgba(122,82,32,.22);
+  background:rgba(251,243,227,.55);
 }
 .travel-c h4{
   font-family:var(--caps);font-size:.56rem;letter-spacing:.3em;
@@ -1215,19 +1301,19 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 /* ══════════════════════════════════════════════════════════════════════
    16 · GALLERY
    ══════════════════════════════════════════════════════════════════════ */
-#gallery{background:linear-gradient(180deg,var(--ink),#130710 50%,var(--ink))}
+#gallery{background:linear-gradient(180deg,var(--ink),#F2DEC4 50%,var(--ink))}
 .gal{
   display:grid;grid-template-columns:repeat(12,1fr);
   gap:clamp(8px,1.4vw,16px);margin-top:60px;
 }
 .gt{
   position:relative;overflow:hidden;cursor:pointer;padding:0;
-  border:1px solid rgba(212,162,76,.16);
+  border:1px solid rgba(122,82,32,.25);
   background:var(--deep);
   transition:transform .6s var(--ease),border-color .5s,box-shadow .6s;
 }
-.gt:hover{transform:scale(1.02);border-color:rgba(212,162,76,.55);
-  box-shadow:0 22px 50px rgba(0,0,0,.55);z-index:2}
+.gt:hover{transform:scale(1.02);border-color:rgba(122,82,32,.6);
+  box-shadow:0 22px 50px rgba(0,0,0,.3);z-index:2}
 .gt svg{width:100%;height:100%;transition:transform .9s var(--ease)}
 .gt:hover svg{transform:scale(1.06)}
 .gt figcaption{
@@ -1244,17 +1330,17 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 
 #lightbox{
   position:fixed;inset:0;z-index:120;
-  background:rgba(6,3,7,.94);
+  background:rgba(251,243,227,.94);
   display:grid;place-items:center;padding:5vmin;
   opacity:0;visibility:hidden;transition:all .5s var(--ease-soft);
 }
 #lightbox.on{opacity:1;visibility:visible}
 #lightbox .lb-in{
   max-width:min(92vw,860px);width:100%;
-  border:1px solid rgba(212,162,76,.35);
+  border:1px solid rgba(122,82,32,.35);
   background:var(--deep);
   transform:scale(.94);transition:transform .5s var(--ease);
-  box-shadow:0 40px 100px rgba(0,0,0,.8);
+  box-shadow:0 40px 100px rgba(0,0,0,.3);
 }
 #lightbox.on .lb-in{transform:scale(1)}
 #lightbox .lb-art svg{width:100%;height:auto;display:block}
@@ -1262,16 +1348,16 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   padding:18px 24px;text-align:center;
   font-family:var(--caps);font-size:.6rem;letter-spacing:.3em;
   text-transform:uppercase;color:var(--gold);
-  border-top:1px solid rgba(212,162,76,.18);
+  border-top:1px solid rgba(122,82,32,.2);
 }
 #lb-close{
   position:absolute;top:max(22px,env(safe-area-inset-top));right:max(24px,env(safe-area-inset-right));
   width:44px;height:44px;border-radius:50%;
-  border:1px solid rgba(212,162,76,.4);color:var(--gold);
+  border:1px solid rgba(122,82,32,.45);color:var(--gold);
   display:grid;place-items:center;font-size:1.3rem;line-height:1;
   transition:all .35s var(--ease);
 }
-#lb-close:hover{background:var(--gold);color:var(--ink);transform:rotate(90deg)}
+#lb-close:hover{background:var(--gold);color:var(--ivory);transform:rotate(90deg)}
 
 /* ══════════════════════════════════════════════════════════════════════
    17 · BLESSINGS WALL
@@ -1279,8 +1365,8 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 #blessings{position:relative;overflow:hidden}
 .bl-compose{
   max-width:620px;margin:52px auto 0;
-  border:1px solid rgba(212,162,76,.2);
-  background:rgba(9,5,10,.55);
+  border:1px solid rgba(122,82,32,.28);
+  background:rgba(251,243,227,.68);
   padding:clamp(22px,4vw,34px);
   position:relative;text-align:left;
 }
@@ -1294,33 +1380,27 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 }
 .bl{
   position:relative;padding:26px 22px 22px;
-  border:1px solid rgba(212,162,76,.15);
-  background:linear-gradient(155deg,rgba(142,27,44,.1),rgba(9,5,10,.6));
+  border:1px solid rgba(122,82,32,.22);
+  background:linear-gradient(155deg,rgba(216,165,90,.16),rgba(251,243,227,.8));
   transition:transform .5s var(--ease),border-color .5s;
   animation:bl-in .7s var(--ease) backwards;
 }
 @keyframes bl-in{from{opacity:0;transform:translateY(18px) scale(.97)}}
-.bl:hover{transform:translateY(-4px);border-color:rgba(212,162,76,.45)}
+.bl:hover{transform:translateY(-4px);border-color:rgba(122,82,32,.5)}
 .bl .mark{
   position:absolute;top:-12px;left:20px;
   width:24px;height:24px;color:var(--gold);
   background:var(--ink);border-radius:50%;padding:2px;
 }
-.bl p{font-size:.97rem;font-style:italic;color:rgba(251,244,230,.8);line-height:1.85}
+.bl p{font-size:.97rem;font-style:italic;color:rgba(43,20,10,.8);line-height:1.85}
 .bl .who{
   margin-top:14px;font-family:var(--caps);font-size:.54rem;
   letter-spacing:.28em;text-transform:uppercase;color:var(--gold);
 }
 
 /* ══════════════════════════════════════════════════════════════════════
-   18 · FORMS + RSVP
+   18 · FORMS
    ══════════════════════════════════════════════════════════════════════ */
-#rsvp{
-  background:
-    radial-gradient(ellipse 70% 60% at 50% 40%,rgba(74,13,28,.55),transparent 66%),
-    var(--ink);
-}
-.form{max-width:560px;margin:52px auto 0;display:flex;flex-direction:column;gap:22px;text-align:left}
 .f label,.fl{
   display:block;font-family:var(--caps);font-size:.55rem;letter-spacing:.3em;
   text-transform:uppercase;color:var(--gold);margin-bottom:10px;
@@ -1328,7 +1408,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 .f input,.f select,.f textarea{
   width:100%;
   background:rgba(255,255,255,.035);
-  border:1px solid rgba(212,162,76,.22);
+  border:1px solid rgba(122,82,32,.3);
   color:var(--ivory);
   padding:15px 18px;
   font-family:var(--serif);font-size:1.02rem;font-weight:300;
@@ -1342,50 +1422,16 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   background:rgba(212,162,76,.06);
   box-shadow:0 0 0 3px rgba(212,162,76,.09);
 }
-.f input::placeholder,.f textarea::placeholder{color:rgba(251,244,230,.24);font-style:italic}
+.f input::placeholder,.f textarea::placeholder{color:rgba(43,20,10,.32);font-style:italic}
 .f select{
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23D4A24C' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237A5220' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat:no-repeat;background-position:right 18px center;background-size:12px;
   padding-right:44px;cursor:pointer;
 }
-.f select option{background:#12070E;color:#FBF4E6}
-.f2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-
-.chips{display:flex;gap:12px;flex-wrap:wrap}
-.chip{position:relative}
-.chip input{position:absolute;opacity:0;pointer-events:none}
-.chip label{
-  display:flex;align-items:center;gap:9px;
-  padding:12px 22px;margin:0;
-  border:1px solid rgba(212,162,76,.26);
-  font-family:var(--serif);font-size:.98rem;letter-spacing:.02em;
-  text-transform:none;color:var(--dim);
-  cursor:pointer;transition:all .38s var(--ease);
-}
-.chip label svg{width:15px;height:15px;opacity:.55;transition:opacity .3s;flex-shrink:0}
-.chip input:checked+label{
-  background:linear-gradient(135deg,var(--gold),var(--gold-l));
-  border-color:var(--gold);color:var(--ink);
-  box-shadow:0 8px 24px rgba(212,162,76,.28);
-}
-.chip input:checked+label svg{opacity:1}
-.chip input:focus-visible+label{outline:2px solid var(--gold);outline-offset:3px}
+.f select option{background:#F6E7CE;color:#2B140A}
 
 .err{color:var(--rose);font-size:.86rem;font-style:italic;margin-top:7px;display:none}
 .err.on{display:block}
-
-.rsvp-done{
-  display:none;max-width:560px;margin:52px auto 0;text-align:center;
-  padding:clamp(34px,6vw,56px);
-  border:1px solid rgba(212,162,76,.3);
-  background:rgba(9,5,10,.6);position:relative;overflow:hidden;
-}
-.rsvp-done.on{display:block;animation:bl-in .8s var(--ease)}
-.rsvp-done .lotus{width:76px;margin:0 auto 18px;color:var(--gold)}
-.rsvp-done h3{font-family:var(--deva);font-size:1.9rem;color:var(--gold-l);font-weight:400}
-.rsvp-done .en{font-family:var(--caps);font-size:.58rem;letter-spacing:.36em;
-  text-transform:uppercase;color:var(--gold);margin:6px 0 16px}
-.rsvp-done p{color:var(--dim);font-style:italic}
 
 /* ══════════════════════════════════════════════════════════════════════
    19 · FOOTER
@@ -1394,22 +1440,22 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   position:relative;z-index:2;
   padding:clamp(70px,10vh,110px) var(--pad) 46px;
   text-align:center;
-  border-top:1px solid rgba(212,162,76,.1);
-  background:linear-gradient(180deg,transparent,rgba(74,13,28,.22));
+  border-top:1px solid rgba(122,82,32,.18);
+  background:linear-gradient(180deg,transparent,rgba(216,165,90,.22));
 }
 .f-ganesha{width:78px;margin:0 auto 22px;opacity:.7;
   filter:drop-shadow(0 0 16px rgba(212,162,76,.3));
   animation:hover-float 7s ease-in-out infinite}
 .f-shlok{
   font-family:var(--deva);font-size:clamp(.85rem,2.4vw,1rem);
-  color:rgba(212,162,76,.82);line-height:2.3;margin-bottom:10px;
+  color:var(--gold-d);line-height:2.3;margin-bottom:10px;
 }
 .f-shlok-tr{font-style:italic;color:var(--dimmer);font-size:.92rem;max-width:46ch;
   margin:0 auto 30px}
 .f-names{
   font-family:var(--display);font-style:italic;
   font-size:clamp(2rem,7vw,3rem);
-  background:linear-gradient(178deg,#FFFDF7,var(--gold-l) 50%,var(--gold));
+  background:linear-gradient(178deg,#8A1420 0%,#9E2233 45%,#6B4718 100%);
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
 }
 .f-sub{font-family:var(--caps);font-size:.56rem;letter-spacing:.34em;
@@ -1418,7 +1464,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   flex-wrap:wrap;margin-top:38px}
 .f-nav a{
   font-family:var(--caps);font-size:.56rem;letter-spacing:.26em;
-  text-transform:uppercase;color:rgba(251,244,230,.35);text-decoration:none;
+  text-transform:uppercase;color:var(--gold-d);text-decoration:none;
   transition:color .35s;
 }
 .f-nav a:hover{color:var(--gold)}
@@ -1426,8 +1472,8 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   margin-top:32px;display:flex;justify-content:center;gap:26px;flex-wrap:wrap;
   font-size:.92rem;color:var(--dimmer);font-style:italic;
 }
-.f-contact a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(212,162,76,.3)}
-.f-copy{margin-top:36px;font-size:.78rem;color:rgba(251,244,230,.18);letter-spacing:.04em}
+.f-contact a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(122,82,32,.4)}
+.f-copy{margin-top:36px;font-size:.78rem;color:var(--dimmer);letter-spacing:.04em}
 
 /* ══════════════════════════════════════════════════════════════════════
    20 · RESPONSIVE
@@ -1517,8 +1563,8 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 <svg id="sprite" width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true">
 <defs>
   <linearGradient id="gGold" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="#F7E7B8"/><stop offset=".45" stop-color="#D4A24C"/>
-    <stop offset="1" stop-color="#8A6524"/>
+    <stop offset="0" stop-color="#D8A55A"/><stop offset=".45" stop-color="#B8863C"/>
+    <stop offset="1" stop-color="#6B4419"/>
   </linearGradient>
   <linearGradient id="gGoldH" x1="0" y1="0" x2="1" y2="0">
     <stop offset="0" stop-color="#8A6524"/><stop offset=".5" stop-color="#F4E0AC"/>
@@ -1642,17 +1688,17 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 
 <!-- ─────────── CORNER ORNAMENT ─────────── -->
 <symbol id="ic-corner" viewBox="0 0 100 100">
-  <g fill="none" stroke="#D4A24C" stroke-linecap="round">
+  <g fill="none" stroke="#7A5220" stroke-linecap="round">
     <path d="M2 2h40M2 2v40" stroke-width="1.6"/>
     <path d="M2 2h20M2 2v20" stroke-width="3.2" opacity=".55"/>
-    <circle cx="2" cy="2" r="3.2" fill="#D4A24C" stroke="none"/>
+    <circle cx="2" cy="2" r="3.2" fill="#7A5220" stroke="none"/>
     <path d="M14 14c16-7 34 2 34 18 0 4-1 7-3 10-14 3-27-9-31-28Z" stroke-width=".9" opacity=".6"/>
     <path d="M20 20c9 0 16 6 17 15" stroke-width=".7" opacity=".45"/>
-    <circle cx="48" cy="33" r="2.4" fill="#D4A24C" stroke="none" opacity=".8"/>
+    <circle cx="48" cy="33" r="2.4" fill="#7A5220" stroke="none" opacity=".8"/>
     <path d="M2 52c9 0 14 5 15 14" stroke-width=".8" opacity=".5"/>
     <path d="M52 2c0 9 5 14 14 15" stroke-width=".8" opacity=".5"/>
-    <circle cx="17" cy="66" r="1.8" fill="#D4A24C" stroke="none" opacity=".55"/>
-    <circle cx="66" cy="17" r="1.8" fill="#D4A24C" stroke="none" opacity=".55"/>
+    <circle cx="17" cy="66" r="1.8" fill="#7A5220" stroke="none" opacity=".55"/>
+    <circle cx="66" cy="17" r="1.8" fill="#7A5220" stroke="none" opacity=".55"/>
   </g>
 </symbol>
 
@@ -2561,7 +2607,6 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   <a href="#venue"       data-sec="venue"><span><span class="i18n-en">Venue</span><span class="i18n-hi">विवाह स्थल</span></span></a>
   <a href="#gallery"     data-sec="gallery"><span><span class="i18n-en">Gallery</span><span class="i18n-hi">चित्रशाला</span></span></a>
   <a href="#blessings"   data-sec="blessings"><span><span class="i18n-en">Blessings</span><span class="i18n-hi">आशीर्वाद</span></span></a>
-  <a href="#rsvp"        data-sec="rsvp"><span><span class="i18n-en">RSVP</span><span class="i18n-hi">आरएसवीपी</span></span></a>
 </nav>
 
 <div id="thread" class="chrome" aria-hidden="true">
@@ -2585,7 +2630,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   <div id="hero-mandala-2"></div>
   <div class="frame"></div>
   <div class="frame inner"></div>
-  <div id="toran" style="height:70px;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='70' viewBox='0 0 120 70'%3E%3Cpath d='M0 5 Q60 44 120 5' fill='none' stroke='%23D4A24C' stroke-width='1.6' opacity='.75'/%3E%3Cg fill='%238E1B2C' stroke='%23D4A24C' stroke-width='.7'%3E%3Cpath d='M30 20 C21 29 21 45 30 54 C39 45 39 29 30 20Z'/%3E%3Cpath d='M60 25 C50 35 50 53 60 64 C70 53 70 35 60 25Z'/%3E%3Cpath d='M90 20 C81 29 81 45 90 54 C99 45 99 29 90 20Z'/%3E%3C/g%3E%3Cg fill='%23E08A2E'%3E%3Ccircle cx='15' cy='13' r='3.2'/%3E%3Ccircle cx='45' cy='27' r='3.2'/%3E%3Ccircle cx='75' cy='27' r='3.2'/%3E%3Ccircle cx='105' cy='13' r='3.2'/%3E%3C/g%3E%3C/svg%3E&quot;);background-repeat:repeat-x;background-position:top center"></div>
+  <div id="toran" style="height:70px;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='70' viewBox='0 0 120 70'%3E%3Cpath d='M0 5 Q60 44 120 5' fill='none' stroke='%237A5220' stroke-width='1.6' opacity='.75'/%3E%3Cg fill='%239E2233' stroke='%237A5220' stroke-width='.7'%3E%3Cpath d='M30 20 C21 29 21 45 30 54 C39 45 39 29 30 20Z'/%3E%3Cpath d='M60 25 C50 35 50 53 60 64 C70 53 70 35 60 25Z'/%3E%3Cpath d='M90 20 C81 29 81 45 90 54 C99 45 99 29 90 20Z'/%3E%3C/g%3E%3Cg fill='%23D97B1F'%3E%3Ccircle cx='15' cy='13' r='3.2'/%3E%3Ccircle cx='45' cy='27' r='3.2'/%3E%3Ccircle cx='75' cy='27' r='3.2'/%3E%3Ccircle cx='105' cy='13' r='3.2'/%3E%3C/g%3E%3C/svg%3E&quot;);background-repeat:repeat-x;background-position:top center"></div>
 
   <svg class="corner tl" viewBox="0 0 100 100"><use href="#ic-corner"/></svg>
   <svg class="corner tr" viewBox="0 0 100 100"><use href="#ic-corner"/></svg>
@@ -2609,8 +2654,8 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
     <p class="names-deva rv d5">बादल &nbsp;·&nbsp; महिमा</p>
 
     <div class="hero-meta rv d5">
-      <span><span class="i18n-en">Monday</span><span class="i18n-hi">सोमवार</span></span><i></i>
-      <span><span class="i18n-en">23 November 2026</span><span class="i18n-hi">23 नवंबर 2026</span></span><i></i>
+      <span><span class="i18n-en">Tuesday</span><span class="i18n-hi">मंगलवार</span></span><i></i>
+      <span><span class="i18n-en">24 November 2026</span><span class="i18n-hi">24 नवंबर 2026</span></span><i></i>
       <span><span class="i18n-en">Chandausi</span><span class="i18n-hi">चंदौसी</span></span>
     </div>
     <p class="hero-tag rv d6">
@@ -2776,7 +2821,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 
     <div class="muhurat rv d4">
       <span class="k"><span class="i18n-en">Wedding Muhurat</span><span class="i18n-hi">विवाह मुहूर्त</span></span>
-      <span class="v">7:30 PM · <span class="i18n-en">Monday, 23 November 2026</span><span class="i18n-hi">सोमवार, 23 नवंबर 2026</span></span>
+      <span class="v">9:00 PM · <span class="i18n-en">Tuesday, 24 November 2026</span><span class="i18n-hi">मंगलवार, 24 नवंबर 2026</span></span>
       <span class="s">मार्गशीर्ष शुक्ल पक्ष · अभिजित मुहूर्त</span>
     </div>
   </div>
@@ -2798,29 +2843,10 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
     </p>
 
     <div class="cer-grid">
-      <article class="cer rv d1" data-tilt data-lb="sc-mehndi" data-cap="Ganesh Puja &amp; Mehndi">
-        <div class="cer-art"><span class="cer-day"><span class="i18n-en">Day One · Sat 21 Nov</span><span class="i18n-hi">पहला दिन · शनि 21 नवं</span></span><svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice"><use href="#sc-mehndi"/></svg></div>
+      <article class="cer rv d1" data-tilt data-lb="sc-haldi" data-cap="Haldi">
+        <div class="cer-art"><span class="cer-day"><span class="i18n-en">Day One · Mon 23 Nov</span><span class="i18n-hi">पहला दिन · सोम 23 नवं</span></span><svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice"><use href="#sc-haldi"/></svg></div>
         <div class="cer-body" style="text-align:left">
-          <div class="cer-time">11:00 AM · <span class="i18n-en">Front Lawn</span><span class="i18n-hi">मुख्य लॉन</span></div>
-          <h3 class="cer-name i18n-en">Ganesh Puja &amp; Mehndi</h3>
-          <div class="cer-deva">गणेश पूजा एवं मेहँदी</div>
-          <p class="cer-desc">
-            <span class="i18n-en">We begin by asking Ganpati to clear the road. Then the henna artists arrive,
-            the dholak starts, and nobody's hands are free for the rest of the afternoon.</span>
-            <span class="i18n-hi">हम गणपति से मार्ग निर्विघ्न करने की प्रार्थना के साथ शुरुआत करते हैं। फिर मेहंदी लगाने वाले आते हैं,
-            ढोलक बजने लगती है, और दोपहर भर किसी के हाथ खाली नहीं रहते।</span>
-          </p>
-          <div class="cer-dress">
-            <span class="i18n-en">Attire — <b>Fresh greens &amp; ivory</b></span>
-            <span class="i18n-hi">पोशाक — <b>हल्का हरा एवं हाथीदांत रंग</b></span>
-          </div>
-        </div>
-      </article>
-
-      <article class="cer rv d2" data-tilt data-lb="sc-haldi" data-cap="Haldi">
-        <div class="cer-art"><span class="cer-day"><span class="i18n-en">Day Two · Sun 22 Nov</span><span class="i18n-hi">दूसरा दिन · रवि 22 नवं</span></span><svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice"><use href="#sc-haldi"/></svg></div>
-        <div class="cer-body" style="text-align:left">
-          <div class="cer-time">10:00 AM · <span class="i18n-en">Poolside Lawn</span><span class="i18n-hi">पूल के पास लॉन</span></div>
+          <div class="cer-time">12:00 PM · <span class="i18n-en">Omi Lala Farm House</span><span class="i18n-hi">ओमी लाला फार्म हाउस</span></div>
           <h3 class="cer-name i18n-en">Haldi</h3>
           <div class="cer-deva">हल्दी</div>
           <p class="cer-desc">
@@ -2836,55 +2862,36 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
         </div>
       </article>
 
-      <article class="cer rv d3" data-tilt data-lb="sc-sangeet" data-cap="Sangeet">
-        <div class="cer-art"><span class="cer-day"><span class="i18n-en">Day Two · Sun 22 Nov</span><span class="i18n-hi">दूसरा दिन · रवि 22 नवं</span></span><svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice"><use href="#sc-sangeet"/></svg></div>
+      <article class="cer rv d2" data-tilt data-lb="sc-roka" data-cap="Engagement">
+        <div class="cer-art"><span class="cer-day"><span class="i18n-en">Day One · Mon 23 Nov</span><span class="i18n-hi">पहला दिन · सोम 23 नवं</span></span><svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice"><use href="#sc-roka"/></svg></div>
         <div class="cer-body" style="text-align:left">
-          <div class="cer-time">8:00 PM · <span class="i18n-en">Banquet Hall</span><span class="i18n-hi">भोज कक्ष</span></div>
-          <h3 class="cer-name i18n-en">Sangeet</h3>
-          <div class="cer-deva">संगीत</div>
+          <div class="cer-time">7:00 PM · <span class="i18n-en">Omi Lala Farm House</span><span class="i18n-hi">ओमी लाला फार्म हाउस</span></div>
+          <h3 class="cer-name i18n-en">Engagement</h3>
+          <div class="cer-deva">सगाई</div>
           <p class="cer-desc">
-            <span class="i18n-en">Both sides have been rehearsing in secret for months and both sides think
-            they are winning. Come early. Sit close. Judge generously.</span>
-            <span class="i18n-hi">दोनों पक्ष महीनों से गुप्त रूप से रिहर्सल कर रहे हैं, और दोनों को यकीन है कि वे जीत रहे हैं।
-            जल्दी आइए, पास बैठिए, और दिल खोलकर सराहना कीजिए।</span>
+            <span class="i18n-en">Rings are exchanged, promises are made out loud, and both families finally
+            celebrate together as one. Come dressed for the evening — and for the photographs.</span>
+            <span class="i18n-hi">अंगूठियां बदली जाएंगी, वचन खुलकर लिए जाएंगे, और दोनों परिवार पहली बार एक साथ जश्न मनाएंगे।
+            सांध्य परिधान में आइए — और तस्वीरों के लिए भी तैयार रहिए।</span>
           </p>
           <div class="cer-dress">
-            <span class="i18n-en">Attire — <b>Midnight &amp; silver</b></span>
-            <span class="i18n-hi">पोशाक — <b>गहरा नीला एवं सिल्वर</b></span>
+            <span class="i18n-en">Attire — <b>Elegant evening wear</b></span>
+            <span class="i18n-hi">पोशाक — <b>सुंदर सांध्य परिधान</b></span>
           </div>
         </div>
       </article>
 
-      <article class="cer rv d1" data-tilt data-lb="sc-baraat" data-cap="Baraat &amp; Milni">
-        <div class="cer-art"><span class="cer-day"><span class="i18n-en">Day Three · Mon 23 Nov</span><span class="i18n-hi">तीसरा दिन · सोम 23 नवं</span></span><svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice"><use href="#sc-baraat"/></svg></div>
+      <article class="cer rv d3" data-tilt data-lb="sc-baraat" data-cap="Jaimala">
+        <div class="cer-art"><span class="cer-day"><span class="i18n-en">Day Two · Tue 24 Nov</span><span class="i18n-hi">दूसरा दिन · मंगल 24 नवं</span></span><svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice"><use href="#sc-baraat"/></svg></div>
         <div class="cer-body" style="text-align:left">
-          <div class="cer-time">5:30 PM · <span class="i18n-en">Main Gate</span><span class="i18n-hi">मुख्य द्वार</span></div>
-          <h3 class="cer-name i18n-en">Baraat &amp; Milni</h3>
-          <div class="cer-deva">बारात एवं मिलनी</div>
+          <div class="cer-time">9:00 PM · <span class="i18n-en">Omi Lala Farm House</span><span class="i18n-hi">ओमी लाला फार्म हाउस</span></div>
+          <h3 class="cer-name i18n-en">Jaimala</h3>
+          <div class="cer-deva">जयमाला</div>
           <p class="cer-desc">
-            <span class="i18n-en">Dhol, shehnai, fireworks lighting up the lawn, and a procession that will cover
-            two hundred metres in roughly ninety minutes. That is the correct speed.</span>
-            <span class="i18n-hi">ढोल, शहनाई, लॉन को रोशन करती आतिशबाज़ी, और एक बारात जो दो सौ मीटर की दूरी
-            लगभग नब्बे मिनट में तय करेगी। यही सही रफ़्तार है।</span>
-          </p>
-          <div class="cer-dress">
-            <span class="i18n-en">Attire — <b>Festive brights</b></span>
-            <span class="i18n-hi">पोशाक — <b>उत्सवी चटख रंग</b></span>
-          </div>
-        </div>
-      </article>
-
-      <article class="cer rv d2" data-tilt data-lb="sc-pheras" data-cap="Vivah &amp; Saptapadi">
-        <div class="cer-art"><span class="cer-day"><span class="i18n-en">Day Three · Mon 23 Nov</span><span class="i18n-hi">तीसरा दिन · सोम 23 नवं</span></span><svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice"><use href="#sc-pheras"/></svg></div>
-        <div class="cer-body" style="text-align:left">
-          <div class="cer-time">7:30 PM · <span class="i18n-en">Mandap Lawn</span><span class="i18n-hi">मंडप लॉन</span></div>
-          <h3 class="cer-name i18n-en">Vivah &amp; Saptapadi</h3>
-          <div class="cer-deva">विवाह एवं सप्तपदी</div>
-          <p class="cer-desc">
-            <span class="i18n-en">The fire is lit, the mantras begin, and seven steps are taken that cannot be
-            taken back. This is the part we would most like you to see.</span>
-            <span class="i18n-hi">अग्नि प्रज्वलित होती है, मंत्रोच्चार आरंभ होता है, और सात ऐसे कदम उठाए जाते हैं जो कभी वापस नहीं लिए जा सकते।
-            यही वह पल है जिसे हम सबसे ज़्यादा आपके साथ बांटना चाहते हैं।</span>
+            <span class="i18n-en">The baraat arrives, the garlands are exchanged, and the wedding truly begins.
+            This is the moment we most want you standing close for.</span>
+            <span class="i18n-hi">बारात पहुंचती है, जयमाला की रस्म होती है, और विवाह की वास्तविक शुरुआत होती है।
+            यही वह पल है जिसमें हम आपको सबसे पास खड़ा देखना चाहते हैं।</span>
           </p>
           <div class="cer-dress">
             <span class="i18n-en">Attire — <b>Royal reds &amp; gold</b></span>
@@ -2893,20 +2900,39 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
         </div>
       </article>
 
-      <article class="cer rv d3" data-tilt>
-        <div class="cer-art" style="display:grid;place-items:center;background:linear-gradient(150deg,#2A0A16,#0C0409)">
-          <span class="cer-day"><span class="i18n-en">Day Three · Mon 23 Nov</span><span class="i18n-hi">तीसरा दिन · सोम 23 नवं</span></span>
-          <svg viewBox="0 0 120 90" style="width:45%;height:auto;color:#D4A24C;transform:none"><use href="#ic-lotus"/></svg>
+      <article class="cer rv d1" data-tilt data-lb="sc-pheras" data-cap="Phere">
+        <div class="cer-art"><span class="cer-day"><span class="i18n-en">Day Two · Tue 24 Nov</span><span class="i18n-hi">दूसरा दिन · मंगल 24 नवं</span></span><svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice"><use href="#sc-pheras"/></svg></div>
+        <div class="cer-body" style="text-align:left">
+          <div class="cer-time"><span class="i18n-en">Midnight</span><span class="i18n-hi">मध्यरात्रि</span> · <span class="i18n-en">Omi Lala Farm House</span><span class="i18n-hi">ओमी लाला फार्म हाउस</span></div>
+          <h3 class="cer-name i18n-en">Phere</h3>
+          <div class="cer-deva">फेरे</div>
+          <p class="cer-desc">
+            <span class="i18n-en">The sacred fire is lit, the mantras begin, and seven steps are taken that
+            cannot be taken back — right after the Jaimala, once the night has properly settled in.</span>
+            <span class="i18n-hi">पवित्र अग्नि प्रज्वलित होती है, मंत्रोच्चार आरंभ होता है, और सात ऐसे कदम उठाए जाते हैं
+            जो कभी वापस नहीं लिए जा सकते — जयमाला के तुरंत बाद, जब रात अच्छी तरह ढल चुकी हो।</span>
+          </p>
+          <div class="cer-dress">
+            <span class="i18n-en">Attire — <b>Royal reds &amp; gold</b></span>
+            <span class="i18n-hi">पोशाक — <b>शाही लाल एवं सुनहरा</b></span>
+          </div>
+        </div>
+      </article>
+
+      <article class="cer rv d2" data-tilt>
+        <div class="cer-art" style="display:grid;place-items:center;background:linear-gradient(150deg,#F6E7CE,#EFDABD)">
+          <span class="cer-day"><span class="i18n-en">Day Three · Wed 25 Nov</span><span class="i18n-hi">तीसरा दिन · बुध 25 नवं</span></span>
+          <svg viewBox="0 0 120 90" style="width:45%;height:auto;color:#7A5220;transform:none"><use href="#ic-lotus"/></svg>
         </div>
         <div class="cer-body" style="text-align:left">
-          <div class="cer-time"><span class="i18n-en">9:30 PM onwards</span><span class="i18n-hi">रात 9:30 बजे से</span> · <span class="i18n-en">Garden Terrace</span><span class="i18n-hi">उद्यान छत</span></div>
-          <h3 class="cer-name i18n-en">Bhoj &amp; Vidaai</h3>
-          <div class="cer-deva">भोज एवं विदाई</div>
+          <div class="cer-time"><span class="i18n-en">Under the Starlight</span><span class="i18n-hi">तारों की छांव में</span> · <span class="i18n-en">Omi Lala Farm House</span><span class="i18n-hi">ओमी लाला फार्म हाउस</span></div>
+          <h3 class="cer-name i18n-en">Vidai</h3>
+          <div class="cer-deva">विदाई</div>
           <p class="cer-desc">
-            <span class="i18n-en">A long dinner under open sky, and then the hardest, kindest moment of the
-            three days. Bring a handkerchief. Everyone always says they won't need one.</span>
-            <span class="i18n-hi">खुले आसमान के नीचे एक लंबा भोज, और फिर इन तीन दिनों का सबसे कठिन और सबसे भावुक पल।
-            एक रूमाल साथ रखिए — हर कोई कहता है ज़रूरत नहीं पड़ेगी, पर पड़ ही जाती है।</span>
+            <span class="i18n-en">The hardest, kindest moment of it all. Bring a handkerchief —
+            everyone always says they won't need one.</span>
+            <span class="i18n-hi">यह सबसे कठिन और सबसे भावुक पल होगा। एक रूमाल साथ रखिए —
+            हर कोई कहता है ज़रूरत नहीं पड़ेगी, पर पड़ ही जाती है।</span>
           </p>
           <div class="cer-dress">
             <span class="i18n-en">Attire — <b>As you are, only warmer</b></span>
@@ -2939,7 +2965,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
       <svg viewBox="0 0 200 150">
         <path d="M42 112h116l-14 26H56Z" fill="#3A1408"/>
         <path d="M38 100h124v12H38Z" fill="#5A2210"/>
-        <path d="M38 100h124M42 112h116" stroke="#D4A24C" stroke-width="1.4" opacity=".7" fill="none"/>
+        <path d="M38 100h124M42 112h116" stroke="#7A5220" stroke-width="1.4" opacity=".7" fill="none"/>
         <g class="fl fl3"><path d="M62 96c-10-16-14-28-10-38 8 10 12 24 10 38Z" fill="url(#gFlame)" opacity=".8"/></g>
         <g class="fl fl2"><path d="M138 96c10-16 14-28 10-38-8 10-12 24-10 38Z" fill="url(#gFlame)" opacity=".8"/></g>
         <g class="fl">
@@ -3070,9 +3096,9 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
       <div class="vrow"><svg viewBox="0 0 24 24"><use href="#ic-car"/></svg>
         <div><b><span class="i18n-en">Arrival</span><span class="i18n-hi">आगमन</span></b><span class="i18n-en">Self-drive or taxi directly to the farm house — detailed directions to follow</span><span class="i18n-hi">फार्म हाउस तक सीधे स्वयं गाड़ी चलाकर या टैक्सी से आएं — विस्तृत दिशा-निर्देश शीघ्र साझा किए जाएंगे</span></div></div>
       <div class="vrow"><svg viewBox="0 0 24 24"><use href="#ic-cal"/></svg>
-        <div><b><span class="i18n-en">Dates</span><span class="i18n-hi">तिथियां</span></b><span class="i18n-en">Saturday 21 — Monday 23 November 2026</span><span class="i18n-hi">शनिवार 21 — सोमवार 23 नवंबर 2026</span></div></div>
+        <div><b><span class="i18n-en">Dates</span><span class="i18n-hi">तिथियां</span></b><span class="i18n-en">Monday 23 — Wednesday 25 November 2026</span><span class="i18n-hi">सोमवार 23 — बुधवार 25 नवंबर 2026</span></div></div>
       <div class="vrow"><svg viewBox="0 0 24 24"><use href="#ic-clock"/></svg>
-        <div><b><span class="i18n-en">Key timings</span><span class="i18n-hi">मुख्य समय</span></b><span class="i18n-en">Mehndi 11:00 AM · Haldi 10:00 AM · Sangeet 8:00 PM · Baraat 5:30 PM · Pheras 7:30 PM</span><span class="i18n-hi">मेहंदी सुबह 11:00 · हल्दी सुबह 10:00 · संगीत रात 8:00 · बारात शाम 5:30 · फेरे शाम 7:30</span></div></div>
+        <div><b><span class="i18n-en">Key timings</span><span class="i18n-hi">मुख्य समय</span></b><span class="i18n-en">Haldi 12:00 PM · Engagement 7:00 PM · Jaimala 9:00 PM · Phere Midnight · Vidai — under the starlight</span><span class="i18n-hi">हल्दी दोपहर 12:00 · सगाई शाम 7:00 · जयमाला रात 9:00 · फेरे मध्यरात्रि · विदाई — तारों की छांव में</span></div></div>
       <div class="vrow"><svg viewBox="0 0 24 24"><use href="#ic-car"/></svg>
         <div><b><span class="i18n-en">Parking</span><span class="i18n-hi">पार्किंग</span></b><span class="i18n-en">On-site parking available</span><span class="i18n-hi">स्थल पर पार्किंग उपलब्ध है</span></div></div>
 
@@ -3187,111 +3213,6 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   </div>
 </section>
 
-<!-- ══════════════════ RSVP ══════════════════ -->
-<section id="rsvp" class="section center">
-  <div class="wrap">
-    <span class="eyebrow-deva rv">॥ कृपया सूचित करें ॥</span>
-    <span class="eyebrow rv d1"><span class="i18n-en">Kindly Respond by 1 October 2026</span><span class="i18n-hi">कृपया 1 अक्टूबर 2026 तक उत्तर दें</span></span>
-    <h2 class="title rv d1">
-      <span class="i18n-en">Will You <em>Be There?</em></span>
-      <span class="i18n-hi">क्या आप <em>वहां होंगे?</em></span>
-    </h2>
-    <div class="gold-rule rv d2"><i></i></div>
-    <p class="lede rv d2">
-      <span class="i18n-en">Knowing who is coming genuinely helps —
-      for the seating, the rooms, and the number of ladoos.</span>
-      <span class="i18n-hi">यह जानना कि कौन आ रहा है, वास्तव में मदद करता है —
-      बैठक व्यवस्था, कमरों और लड्डुओं की संख्या के लिए।</span>
-    </p>
-
-    <form class="form rv d3" id="rsvp-form" novalidate>
-      <div class="f2">
-        <div class="f">
-          <label for="g-name"><span class="i18n-en">Guest name</span><span class="i18n-hi">अतिथि का नाम</span><span class="sr"> <span class="i18n-en">(required)</span><span class="i18n-hi">(आवश्यक)</span></span></label>
-          <input type="text" id="g-name" data-i18n-ph-en="Your full name" data-i18n-ph-hi="आपका पूरा नाम" placeholder="Your full name" autocomplete="name">
-        </div>
-        <div class="f">
-          <label for="g-contact"><span class="i18n-en">Phone or email</span><span class="i18n-hi">फ़ोन या ईमेल</span></label>
-          <input type="text" id="g-contact" data-i18n-ph-en="So we can reach you" data-i18n-ph-hi="ताकि हम आपसे संपर्क कर सकें" placeholder="So we can reach you" autocomplete="tel">
-        </div>
-      </div>
-
-      <div class="f">
-        <span class="fl"><span class="i18n-en">Will you join us?</span><span class="i18n-hi">क्या आप हमारे साथ होंगे?</span></span>
-        <div class="chips" role="radiogroup" data-i18n-aria-en="Attendance" data-i18n-aria-hi="उपस्थिति" aria-label="Attendance">
-          <div class="chip">
-            <input type="radio" name="attend" id="a-yes" value="yes">
-            <label for="a-yes"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span class="i18n-en">Joyfully accepting</span><span class="i18n-hi">खुशी से स्वीकार</span></label>
-          </div>
-          <div class="chip">
-            <input type="radio" name="attend" id="a-no" value="no">
-            <label for="a-no"><svg viewBox="0 0 24 24"><use href="#ic-heart"/></svg><span class="i18n-en">Blessing from afar</span><span class="i18n-hi">दूर से आशीर्वाद</span></label>
-          </div>
-        </div>
-        <p class="err" id="rsvp-err"><span class="i18n-en">Please tell us your name and whether you can come.</span><span class="i18n-hi">कृपया हमें अपना नाम बताएं और यह भी कि क्या आप आ सकते हैं।</span></p>
-      </div>
-
-      <div id="yes-only" style="display:none;flex-direction:column;gap:22px">
-        <div class="f2">
-          <div class="f">
-            <label for="g-count"><span class="i18n-en">How many of you?</span><span class="i18n-hi">आप कितने लोग होंगे?</span></label>
-            <select id="g-count">
-              <option value="1" data-i18n-en="Just me" data-i18n-hi="केवल मैं">Just me</option>
-              <option value="2" data-i18n-en="Two of us" data-i18n-hi="हम दो">Two of us</option>
-              <option value="3" data-i18n-en="Three" data-i18n-hi="तीन">Three</option>
-              <option value="4" data-i18n-en="Four" data-i18n-hi="चार">Four</option>
-              <option value="5" data-i18n-en="Five or more" data-i18n-hi="पांच या अधिक">Five or more</option>
-            </select>
-          </div>
-          <div class="f">
-            <label for="g-feast"><span class="i18n-en">At the table</span><span class="i18n-hi">भोजन में प्राथमिकता</span></label>
-            <select id="g-feast">
-              <option value="satvik" data-i18n-en="Satvik — no onion, no garlic" data-i18n-hi="सात्विक — बिना प्याज़, बिना लहसुन">Satvik — no onion, no garlic</option>
-              <option value="veg" data-i18n-en="Vegetarian" data-i18n-hi="शाकाहारी">Vegetarian</option>
-              <option value="jain" data-i18n-en="Jain" data-i18n-hi="जैन">Jain</option>
-              <option value="none" data-i18n-en="No preference" data-i18n-hi="कोई प्राथमिकता नहीं">No preference</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="f">
-          <span class="fl"><span class="i18n-en">Which days can you make?</span><span class="i18n-hi">आप किन दिनों में शामिल हो सकते हैं?</span></span>
-          <div class="chips">
-            <div class="chip"><input type="checkbox" id="e1" checked><label for="e1"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span class="i18n-en">Mehndi</span><span class="i18n-hi">मेहंदी</span></label></div>
-            <div class="chip"><input type="checkbox" id="e2" checked><label for="e2"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span class="i18n-en">Haldi</span><span class="i18n-hi">हल्दी</span></label></div>
-            <div class="chip"><input type="checkbox" id="e3" checked><label for="e3"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span class="i18n-en">Sangeet</span><span class="i18n-hi">संगीत</span></label></div>
-            <div class="chip"><input type="checkbox" id="e4" checked><label for="e4"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span class="i18n-en">Baraat</span><span class="i18n-hi">बारात</span></label></div>
-            <div class="chip"><input type="checkbox" id="e5" checked><label for="e5"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg><span class="i18n-en">Pheras</span><span class="i18n-hi">फेरे</span></label></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="f">
-        <label for="g-note"><span class="i18n-en">Anything we should know?</span><span class="i18n-hi">क्या हमें कुछ और बताना चाहेंगे?</span></label>
-        <textarea id="g-note" data-i18n-ph-en="Allergies, arrival time, a song you want played…" data-i18n-ph-hi="एलर्जी, आगमन का समय, कोई गीत जो आप बजवाना चाहें…" placeholder="Allergies, arrival time, a song you want played…" maxlength="400"></textarea>
-      </div>
-
-      <button type="submit" class="btn solid" style="align-self:flex-start">
-        <span class="i18n-en">Send Response</span><span class="i18n-hi">उत्तर भेजें</span> <svg viewBox="0 0 24 24"><use href="#ic-arrow"/></svg>
-      </button>
-    </form>
-
-    <div class="rsvp-done" id="rsvp-done" role="status">
-      <svg class="lotus" viewBox="0 0 120 90"><use href="#ic-lotus"/></svg>
-      <h3>धन्यवाद</h3>
-      <div class="en i18n-en">Dhanyavaad</div>
-      <p id="rsvp-done-msg">
-        <span class="i18n-en">Your response has been noted with gratitude.</span>
-        <span class="i18n-hi">आपका उत्तर कृतज्ञतापूर्वक दर्ज कर लिया गया है।</span>
-      </p>
-      <div style="margin-top:26px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-        <button class="btn" id="ics-btn-2"><span class="i18n-en">Add to Calendar</span><span class="i18n-hi">कैलेंडर में जोड़ें</span> <svg viewBox="0 0 24 24"><use href="#ic-cal"/></svg></button>
-        <button class="btn" id="rsvp-edit"><span class="i18n-en">Change my answer</span><span class="i18n-hi">अपना उत्तर बदलें</span></button>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ══════════════════ FOOTER ══════════════════ -->
 <footer id="footer">
   <svg class="f-ganesha" viewBox="0 0 200 210"><use href="#ic-ganesha"/></svg>
@@ -3314,7 +3235,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   <nav class="f-nav">
     <a href="#hero"><span class="i18n-en">Home</span><span class="i18n-hi">प्रारंभ</span></a><a href="#couple"><span class="i18n-en">The Couple</span><span class="i18n-hi">वधू वर</span></a>
     <a href="#ceremonies"><span class="i18n-en">Ceremonies</span><span class="i18n-hi">अनुष्ठान</span></a><a href="#saptapadi"><span class="i18n-en">Vows</span><span class="i18n-hi">सप्तपदी</span></a>
-    <a href="#venue"><span class="i18n-en">Venue</span><span class="i18n-hi">विवाह स्थल</span></a><a href="#gallery"><span class="i18n-en">Gallery</span><span class="i18n-hi">चित्रशाला</span></a><a href="#rsvp"><span class="i18n-en">RSVP</span><span class="i18n-hi">आरएसवीपी</span></a>
+    <a href="#venue"><span class="i18n-en">Venue</span><span class="i18n-hi">विवाह स्थल</span></a><a href="#gallery"><span class="i18n-en">Gallery</span><span class="i18n-hi">चित्रशाला</span></a>
   </nav>
 
   <!-- ✎ EDIT : contact numbers -->
@@ -3345,13 +3266,15 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 const CONFIG = {
   groom      : 'Badal',
   bride      : 'Mahima',
-  // the moment the pheras begin (ISO 8601 with timezone offset)
-  muhurat    : '2026-11-23T19:30:00+05:30',
-  // same moment in UTC, for the calendar file  (19:30 IST = 14:00 UTC)
-  icsStartUTC: '20261123T140000Z',
-  icsEndUTC  : '20261123T183000Z',
+  // the moment the Jaimala begins (ISO 8601 with timezone offset) — Phere
+  // follows straight after, around midnight the same night
+  muhurat    : '2026-11-24T21:00:00+05:30',
+  // same moment in UTC, for the calendar file (21:00 IST = 15:30 UTC),
+  // block runs through the Phere into the early hours of the 25th
+  icsStartUTC: '20261124T153000Z',
+  icsEndUTC  : '20261124T193000Z',
   venue      : 'Omi Lala Farm House, Chandausi, Uttar Pradesh, India',
-  shareText  : 'Badal & Mahima are getting married — 23 November 2026, Omi Lala Farm House, Chandausi.'
+  shareText  : 'Badal & Mahima are getting married — 24 November 2026, Omi Lala Farm House, Chandausi.'
 };
 
 /* ── tiny helpers ── */
@@ -3490,12 +3413,16 @@ function petalRingSVG(n = 18){
       + `C${c - w} ${c - r1 + 8} ${c - w} ${c - r0 - 8} ${c} ${c - r0}Z"/></g>`);
   }
   return `<svg viewBox="0 0 ${S} ${S}" style="width:100%;height:100%">`
-       + `<g fill="none" stroke="#D4A24C" stroke-width="1">${g.join('')}</g></svg>`;
+       + `<g fill="none" stroke="#7A5220" stroke-width="1">${g.join('')}</g></svg>`;
 }
 
-/* paint them */
-$('#hero-mandala').innerHTML   = mandalaSVG(20261123);
-$('#hero-mandala-2').innerHTML = mandalaSVG(777);
+/* paint them — the hero field sits directly on the (now light) hero
+   background, so it needs a darker gold/accent than the default; the
+   gallery's generative-mandala tiles below still call mandalaSVG() with
+   no colour args, since they sit on their own dark medallion backdrop
+   where the default (lighter) gold/crimson still reads correctly */
+$('#hero-mandala').innerHTML   = mandalaSVG(20261123, '#7A5220', '#9E2233');
+$('#hero-mandala-2').innerHTML = mandalaSVG(777, '#7A5220', '#9E2233');
 $$('[data-petalring]').forEach(el => el.innerHTML = petalRingSVG());
 $$('[data-mandala]').forEach((el, i) => {
   const seed = [4242, 90210][i] ?? (i * 977 + 13);
@@ -3566,7 +3493,7 @@ addEventListener('keydown', e => {
 const cv = $('#petals'), ctx = cv.getContext('2d');
 let W = 0, H = 0, DPR = 1, bits = [], petalsRunning = false;
 
-const PETAL_COLORS = ['#C9455F', '#E08A2E', '#F4E0AC', '#D4A24C', '#8E1B2C', '#FBF4E6'];
+const PETAL_COLORS = ['#C9455F', '#D97B1F', '#D8A55A', '#B8863C', '#9E2233', '#7A5220'];
 
 function sizeCanvas(){
   DPR = Math.min(devicePixelRatio || 1, 2);
@@ -3780,9 +3707,9 @@ const DIYA_SVG = `
   <path d="M12 58c0 22 16 34 38 34s38-12 38-34Z" fill="url(#gClay)"/>
   <ellipse cx="50" cy="58" rx="38" ry="8" fill="#4A1B0D"/>
   <ellipse cx="50" cy="58" rx="30" ry="5" fill="#7A4A12"/>
-  <path d="M12 58c0 22 16 34 38 34s38-12 38-34" fill="none" stroke="#D4A24C" stroke-width="1.3" opacity=".7"/>
-  <ellipse cx="50" cy="58" rx="38" ry="8" fill="none" stroke="#D4A24C" stroke-width="1.2" opacity=".8"/>
-  <g fill="#D4A24C" opacity=".55">
+  <path d="M12 58c0 22 16 34 38 34s38-12 38-34" fill="none" stroke="#7A5220" stroke-width="1.3" opacity=".7"/>
+  <ellipse cx="50" cy="58" rx="38" ry="8" fill="none" stroke="#7A5220" stroke-width="1.2" opacity=".8"/>
+  <g fill="#7A5220" opacity=".55">
     <circle cx="30" cy="76" r="2"/><circle cx="50" cy="82" r="2"/><circle cx="70" cy="76" r="2"/>
   </g>
 </svg>`;
@@ -4026,67 +3953,7 @@ $('#bl-form').addEventListener('submit', e => {
 });
 
 /* ══════════════════════════════════════════════════════════════════════
-   12 · RSVP
-   ══════════════════════════════════════════════════════════════════════ */
-const yesOnly = $('#yes-only');
-$$('input[name="attend"]').forEach(r => r.addEventListener('change', () => {
-  yesOnly.style.display = ($('#a-yes').checked) ? 'flex' : 'none';
-}));
-
-$('#rsvp-form').addEventListener('submit', e => {
-  e.preventDefault();
-  const name = $('#g-name').value.trim();
-  const attend = $$('input[name="attend"]').find(r => r.checked);
-  const err = $('#rsvp-err');
-
-  if (name.length < 2 || !attend){
-    err.classList.add('on');
-    (name.length < 2 ? $('#g-name') : $('#a-yes')).focus();
-    return;
-  }
-  err.classList.remove('on');
-
-  const events = ['e1','e2','e3','e4','e5'].filter(id => $('#' + id).checked).length;
-  const payload = {
-    name, attend: attend.value,
-    contact : $('#g-contact').value.trim(),
-    count   : $('#g-count').value,
-    feast   : $('#g-feast').value,
-    events, note: $('#g-note').value.trim(),
-    at: new Date().toISOString()
-  };
-  /* ✎ To collect responses for real, POST `payload` to a Google Form,
-     Formspree endpoint or your own API right here. */
-  try { localStorage.setItem('bm-rsvp-v1', JSON.stringify(payload)); } catch {}
-  console.log('RSVP', payload);
-
-  const first = name.split(/\s+/)[0];
-  const RSVP_MSG = {
-    en: {
-      yes: `${first}, you are on the list. Rooms and ladoos have been adjusted accordingly. See you at the farm.`,
-      no : `Thank you, ${first}. You will be missed at the fire — but your blessings will be there, and that counts.`
-    },
-    hi: {
-      yes: `${first}, आपका नाम सूची में जुड़ गया है। कमरे और लड्डू तदनुसार व्यवस्थित कर दिए गए हैं। फार्म हाउस पर मिलते हैं।`,
-      no : `धन्यवाद, ${first}। अग्नि के समक्ष आपकी कमी खलेगी — लेकिन आपका आशीर्वाद वहां ज़रूर होगा, और यही मायने रखता है।`
-    }
-  };
-  $('#rsvp-done-msg').textContent = RSVP_MSG[currentLang()][attend.value === 'yes' ? 'yes' : 'no'];
-
-  $('#rsvp-form').style.display = 'none';
-  $('#rsvp-done').classList.add('on');
-  $('#rsvp-done').scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'center' });
-  if (attend.value === 'yes') burstPetals(110);
-});
-
-$('#rsvp-edit').addEventListener('click', () => {
-  $('#rsvp-done').classList.remove('on');
-  $('#rsvp-form').style.display = 'flex';
-  $('#g-name').focus();
-});
-
-/* ══════════════════════════════════════════════════════════════════════
-   13 · CALENDAR + SHARE
+   12 · CALENDAR + SHARE
    ══════════════════════════════════════════════════════════════════════ */
 function downloadICS(){
   const ics = [
@@ -4109,11 +3976,10 @@ function downloadICS(){
   document.body.appendChild(a); a.click(); a.remove();
 }
 $('#ics-btn').addEventListener('click', downloadICS);
-$('#ics-btn-2').addEventListener('click', downloadICS);
 
 $('#share-btn').addEventListener('click', async () => {
   const shareText = currentLang() === 'hi'
-    ? 'बादल और महिमा का विवाह हो रहा है — 23 नवंबर 2026, ओमी लाला फार्म हाउस, चंदौसी।'
+    ? 'बादल और महिमा का विवाह हो रहा है — 24 नवंबर 2026, ओमी लाला फार्म हाउस, चंदौसी।'
     : CONFIG.shareText;
   const data = { title: `${CONFIG.groom} & ${CONFIG.bride}`, text: shareText, url: location.href };
   if (navigator.share){
@@ -4207,7 +4073,7 @@ $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
 }));
 
 console.log('%c॥ शुभ विवाह ॥', 'color:#D4A24C;font-size:20px;font-family:serif');
-console.log('%cBadal & Mahima · 23 November 2026 · Omi Lala Farm House, Chandausi',
+console.log('%cBadal & Mahima · 24 November 2026 · Omi Lala Farm House, Chandausi',
             'color:#C9455F;font-size:12px;letter-spacing:2px');
 </script>
 </body>
