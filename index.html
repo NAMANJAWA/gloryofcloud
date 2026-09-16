@@ -13,7 +13,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Marcellus&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Noto+Serif+Devanagari:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Marcellus&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Eczar:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@300;400;500&display=swap" rel="stylesheet">
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23FBF3E3'/%3E%3Ctext x='50' y='72' font-size='68' text-anchor='middle' fill='%237A5220' font-family='serif'%3E%E0%A5%90%3C/text%3E%3C/svg%3E">
 
@@ -75,12 +75,12 @@
   --serif:'Cormorant Garamond',Georgia,serif;
   --display:'Playfair Display',Georgia,serif;
   --caps:'Marcellus',Georgia,serif;
-  --deva:'Noto Serif Devanagari','Cormorant Garamond',serif;
+  --deva:'Eczar','Noto Serif Devanagari','Cormorant Garamond',serif;
 
   --ease:cubic-bezier(.16,1,.3,1);
   --ease-soft:cubic-bezier(.4,0,.2,1);
 
-  /* raised from 0 → 1 as guests light the nine diyas */
+  /* raised from 0 → 1 as guests light the seven diyas of the Saptapadi */
   --warmth:0;
 
   --pad:clamp(20px,5vw,40px);
@@ -93,12 +93,62 @@
    LANGUAGE TOGGLE — driven by [data-lang] on <html>, set as early as
    possible (see the tiny script right after <body>) from ?lang=, then a
    saved preference, then the "hi" default, so there's no flash of the
-   wrong language. The existing Devanagari accents (mantras, "-deva"
-   subtitles) are NOT part of this system — they show in both languages,
-   untouched, same as before.
-   ══════════════════════════════════════════════════════════════════════ */
+   wrong language. Sanskrit mantras/shlokas (the "-deva" invocation lines
+   that sit ABOVE a toggling heading, e.g. eyebrow-deva) are deliberately
+   left outside this system — they're liturgical, not a translation of
+   anything else on the page, so they stay put in both languages. Actual
+   names/headings that used to show a fixed English heading plus an
+   always-on Hindi caption underneath (or vice versa) were converted to
+   proper i18n-en/i18n-hi pairs instead, so each language shows only
+   itself, never both at once.
+
+   The .i18n-hi override below matters beyond the toggle itself: most of
+   the site's small-caps labels use `--caps` (Marcellus, a Latin-only
+   font) with heavy tracking and uppercase-transform. Devanagari has no
+   case, so uppercase is harmless there — but wide letter-spacing breaks
+   conjuncts/matras apart and made Hindi text look mangled wherever it
+   inherited that treatment. This resets both, and forces the Devanagari
+   font, for every element carrying real Hindi text, not just the ones
+   that were already using --deva explicitly. */
 [data-lang="hi"] .i18n-en{display:none}
 [data-lang="en"] .i18n-hi{display:none}
+.i18n-hi{
+  font-family:var(--deva);
+  letter-spacing:normal;
+  text-transform:none;
+  font-style:normal;
+}
+
+/* Resetting the tracking (above) stopped Hindi labels being mangled, but not
+   being tiny. The small-caps labels are set at .52–.66rem, which reads fine as
+   Marcellus uppercase Latin and reads as an 8–11px smudge in Devanagari, where
+   there is no case to exploit and the matras and conjuncts need optical size.
+   Every --caps label therefore gets a floor when the page is in Hindi.
+   The list is spelled out because CSS cannot ask "is this styled with --caps";
+   add new label classes here too. */
+html[data-lang="hi"] :is(
+  .eyebrow, .person-role, .cer-day, .cer-time, .travel-c h4,
+  .vrow div b, .muhurat .k, .f-nav a, .f-sub, .bl .who, .f label, .fl,
+  .scroll-cue span,
+  .diya-hint, .btn, .gt figcaption, .lb-cap
+){
+  font-family:var(--deva);
+  font-size:.8rem;
+  letter-spacing:.02em;
+  text-transform:none;
+}
+/* the eyebrow carries a whole phrase rather than a one-word label */
+html[data-lang="hi"] .eyebrow{font-size:.88rem}
+
+/* Sanskrit set inline inside a Latin small-caps line — it belongs to no
+   language toggle (it shows in both), so it cannot rely on .i18n-hi and
+   was inheriting the .34em tracking that pulls Devanagari conjuncts apart. */
+.deva-inline{
+  font-family:var(--deva);
+  font-size:.82rem;
+  letter-spacing:.02em;
+  text-transform:none;
+}
 
 html{
   scroll-behavior:smooth;
@@ -148,7 +198,7 @@ a{color:inherit}
   letter-spacing:.42em;
   text-transform:uppercase;
   color:var(--gold);
-  margin-bottom:14px;
+  margin-bottom:20px;
 }
 .eyebrow-deva{
   display:block;
@@ -156,7 +206,7 @@ a{color:inherit}
   font-size:.95rem;
   letter-spacing:.06em;
   color:var(--gold-d);
-  margin-bottom:6px;
+  margin-bottom:11px;
 }
 .title{
   font-family:var(--display);
@@ -164,6 +214,7 @@ a{color:inherit}
   font-weight:400;
   line-height:1.1;
   letter-spacing:-.01em;
+  text-wrap:balance;
 }
 .title em{
   font-style:italic;
@@ -176,6 +227,7 @@ a{color:inherit}
   font-style:italic;
   color:var(--dim);
   line-height:1.85;
+  text-wrap:balance;
 }
 .gold-rule{
   width:clamp(90px,16vw,150px);
@@ -305,24 +357,38 @@ a{color:inherit}
 }
 #portal.gone{opacity:0;visibility:hidden;pointer-events:none}
 
+/* the rays are masked to a ring: unmasked, the repeating-conic slashes ran
+   edge to edge and read as stripes across the whole screen rather than as
+   light coming off the envelope */
 .portal-rays{
   position:absolute;width:150vmax;height:150vmax;
-  opacity:.16;
+  opacity:.5;
   background:repeating-conic-gradient(from 0deg,
-    transparent 0 6deg,rgba(184,134,60,.5) 6deg 6.7deg,transparent 6.7deg 18deg);
-  animation:slow-spin 90s linear infinite;
+    transparent 0 6deg,rgba(184,134,60,.28) 6deg 6.8deg,transparent 6.8deg 18deg);
+  -webkit-mask-image:radial-gradient(circle at 50% 50%,transparent 9%,#000 26%,transparent 46%);
+  mask-image:radial-gradient(circle at 50% 50%,transparent 9%,#000 26%,transparent 46%);
+  animation:slow-spin 120s linear infinite;
   pointer-events:none;
 }
 @keyframes slow-spin{to{transform:rotate(360deg)}}
 
+/* the envelope drops and shrinks as it opens, purely to clear headroom
+   above itself — the card has to travel most of its own height upward to
+   be readable, and centred in the viewport there is nowhere for it to go */
 .env{
+  /* --envw is the whole point of this block: every type size and gap on the
+     card below is a fraction of it rather than of the viewport. Sized off vw,
+     the card's text stayed full-size inside an envelope that vh had shrunk —
+     so on a wide, short window the content overflowed the part of the card
+     that clears the envelope, and the date was cut off. */
+  --envw:min(86vw,440px,calc(52vh * 1.5));
   position:relative;
-  width:min(86vw,440px,calc(58vh * 1.5));
+  width:var(--envw);
   aspect-ratio:1.5/1;
   transform-style:preserve-3d;
-  transition:transform 1.1s var(--ease);
+  transition:transform 1.2s var(--ease) .35s;
 }
-.env.opened{transform:translateY(4%) scale(.94)}
+.env.opened{transform:translateY(17%) scale(.82)}
 
 .env-body{
   position:absolute;inset:0;
@@ -338,35 +404,41 @@ a{color:inherit}
 
 /* The card sits BEHIND the back panel (negative Z) so that, while the
    envelope is sealed, it is genuinely inside and invisible. It only appears
-   as it rises past the envelope's top edge. */
+   as it rises past the envelope's top edge.
+
+   -40px, not the -1px this used to be: a single pixel of separation is
+   below what Chrome's plane sorting resolves reliably, so the card bled
+   through the envelope body and the whole opening looked like two images
+   fighting. At -40px it is decisively behind the body (0) and the pocket
+   (+3), and still in front of the opened flap (-60). The ~3% perspective
+   shrink that costs is bought back with scale(1.03).
+
+   Content is anchored to the TOP of the card rather than centred: only the
+   upper half ever clears the envelope, and the names and date have to live
+   in the half a guest can actually see. */
 .env-card{
   position:absolute;left:5%;right:5%;top:8%;bottom:8%;
   background:
     radial-gradient(ellipse 90% 60% at 50% -8%,rgba(212,162,76,.20),transparent 58%),
     radial-gradient(ellipse 80% 50% at 50% 108%,rgba(216,165,90,.12),transparent 62%),
     linear-gradient(170deg,#FDF8EC,#F0E4C8);
-  transform:translateZ(-1px);
-  display:grid;place-items:center;text-align:center;
-  padding:clamp(16px,5%,24px);
-  box-shadow:0 10px 30px rgba(0,0,0,.5),inset 0 0 0 1px rgba(212,162,76,.22);
-  transition:transform 1.3s var(--ease) .3s,opacity .7s ease 1.25s;
+  transform:translateZ(-40px) scale(1.03);
+  display:grid;place-items:start center;text-align:center;
+  padding:4.4% 5%;
+  box-shadow:0 14px 34px rgba(0,0,0,.42),inset 0 0 0 1px rgba(212,162,76,.22);
+  transition:transform 1.3s var(--ease) .6s;
 }
-.env.opened .env-card{transform:translateZ(-1px) translateY(-52%) rotateX(4deg);opacity:0}
-/* short viewports (a typical laptop browser window) leave much less
-   headroom above the vertically-centred envelope than a tall phone screen —
-   without this the card's rise-distance (a % of its OWN height) pushes it
-   above y=0, off the top of the page, before anyone reads the date */
-@media (max-height:700px){
-  .env.opened .env-card{transform:translateZ(-1px) translateY(-38%) rotateX(4deg)}
-}
-
+/* It holds full opacity the whole way up — the portal's own fade carries it
+   off screen. The old rule faded it out from 1.25s while it was still
+   travelling, which is the reason the letter never appeared to come out. */
+.env.opened .env-card{transform:translateZ(-40px) scale(1.03) translateY(-90%) rotateX(3deg)}
 /* plain gold corner brackets — no clip-path, no external SVG reference:
    both proved unreliable here (clip-path on a card living inside the
    envelope's 3D/preserve-3d stack broke its layering; the sprite <use>
    icons failed to resolve), so this is deliberately the simplest possible
    CSS that still reads as an ornamental frame. */
 .env-card .cc{
-  position:absolute;width:16px;height:16px;
+  position:absolute;width:calc(var(--envw)*.036);height:calc(var(--envw)*.036);
   border:1px solid var(--gold-d);opacity:.8;pointer-events:none;
 }
 .env-card .cc.tl{top:7px;left:7px;border-right:none;border-bottom:none}
@@ -376,16 +448,16 @@ a{color:inherit}
 
 .env-card-in{position:relative}
 
-.env-card-deva{font-family:var(--deva);font-size:.8rem;color:var(--crimson);letter-spacing:.04em}
+.env-card-deva{font-family:var(--deva);font-size:calc(var(--envw)*.036);color:var(--crimson);letter-spacing:.04em}
 .env-card-names{
   display:flex;align-items:center;justify-content:center;flex-wrap:wrap;
-  gap:clamp(4px,1.8vw,10px);
+  gap:calc(var(--envw)*.022);
   font-family:var(--display);font-style:italic;
-  font-size:clamp(1.3rem,5vw,1.9rem);color:var(--maroon);line-height:1.1;margin:8px 0 0;
+  font-size:calc(var(--envw)*.069);color:var(--maroon);line-height:1.1;margin:calc(var(--envw)*.011) 0 0;
 }
 .env-card-amp{font-size:.7em;color:var(--gold-d)}
 
-.env-card-rule{width:clamp(64px,42%,110px);height:10px;margin:8px auto 10px;position:relative}
+.env-card-rule{width:42%;height:calc(var(--envw)*.023);margin:calc(var(--envw)*.011) auto calc(var(--envw)*.014);position:relative}
 .env-card-rule::before,.env-card-rule::after{
   content:'';position:absolute;top:5px;height:1px;width:calc(50% - 7px);
   background:linear-gradient(90deg,transparent,var(--gold-d));
@@ -400,16 +472,16 @@ a{color:inherit}
 
 /* the date — the one thing on this card that must read instantly */
 .ecd-dow{
-  display:block;font-family:var(--caps);font-size:.62rem;letter-spacing:.34em;
-  text-transform:uppercase;color:var(--gold-d);margin-bottom:6px;
+  display:block;font-family:var(--caps);font-size:calc(var(--envw)*.0245);letter-spacing:.34em;
+  text-transform:uppercase;color:var(--gold-d);margin-bottom:calc(var(--envw)*.008);
 }
-.ecd-row{display:flex;align-items:baseline;justify-content:center;gap:clamp(8px,2.4vw,14px)}
+.ecd-row{display:flex;align-items:baseline;justify-content:center;gap:calc(var(--envw)*.032)}
 .ecd-num{
   font-family:var(--display);font-weight:500;
-  font-size:clamp(2rem,7.5vw,2.7rem);line-height:1;color:var(--crimson);
+  font-size:calc(var(--envw)*.098);line-height:1;color:var(--crimson);
 }
 .ecd-my{
-  font-family:var(--caps);font-size:clamp(.64rem,2vw,.76rem);
+  font-family:var(--caps);font-size:calc(var(--envw)*.0295);
   letter-spacing:.16em;text-transform:uppercase;color:var(--maroon);
   line-height:1.55;text-align:left;
 }
@@ -432,21 +504,30 @@ a{color:inherit}
   background:linear-gradient(174deg,#8A2032 0%,#4E0F1D 88%);
   transform-origin:top center;
   transform:translateZ(2px) rotateX(0deg);
-  transition:transform 1.15s var(--ease);
+  transition:transform 1s var(--ease) .15s;
   filter:drop-shadow(0 2px 0 rgba(212,162,76,.5));
 }
-.env.opened .env-flap{transform:translateZ(2px) rotateX(-176deg)}
+/* -60px on the Z axis is what actually fixes the open: rotated but left at
+   z=2px the flap lands directly above the envelope — exactly the space the
+   card rises into — and, being in front of the card's z=-1px, hid it
+   completely. Pushing the opened flap behind the card's plane clears the
+   path. The ~4% perspective shrink it costs reads as the fold falling away. */
+.env.opened .env-flap{transform:translateZ(-60px) rotateX(-170deg)}
 
 /* translateZ keeps the seal in front of the flap and pocket — z-index alone
    does nothing against siblings positioned in the same 3D space */
 .seal{
   position:absolute;left:50%;top:58%;
   transform:translate(-50%,-50%) translateZ(8px);
-  width:clamp(62px,17vw,84px);aspect-ratio:1;border-radius:50%;
-  background:radial-gradient(circle at 34% 30%,#C1263C,#7A0E1E 60%,#520914);
-  box-shadow:0 8px 24px rgba(0,0,0,.6),inset 0 -3px 10px rgba(0,0,0,.5),inset 0 3px 8px rgba(255,255,255,.14);
+  width:calc(var(--envw)*.19);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle at 44% 38%,#A61A30,#7A0E1E 58%,#5A0A15);
+  box-shadow:
+    0 6px 18px rgba(0,0,0,.5),
+    inset 0 0 0 1px rgba(212,162,76,.4),
+    inset 0 -2px 7px rgba(0,0,0,.45),
+    inset 0 2px 4px rgba(255,255,255,.07);
   display:grid;place-items:center;
-  font-family:var(--deva);font-size:1.9rem;color:var(--gold-l);
+  font-family:var(--deva);font-size:calc(var(--envw)*.072);color:var(--gold-l);
   text-shadow:0 1px 3px rgba(0,0,0,.6);
   z-index:5;
   transition:transform .6s var(--ease),opacity .6s ease;
@@ -471,7 +552,10 @@ a{color:inherit}
   animation:hint-breathe 2.6s ease-in-out infinite;
 }
 @keyframes hint-breathe{0%,100%{opacity:.4}50%{opacity:1}}
-.env.opened ~ .portal-hint{opacity:0;transition:opacity .4s}
+/* animation:none matters — the breathing keyframes set opacity every frame
+   and would otherwise keep overriding the 0 below, leaving "break the seal"
+   pulsing away under an envelope that is already open */
+.env.opened ~ .portal-hint{opacity:0;animation:none;transition:opacity .4s}
 
 .shard{
   position:fixed;z-index:160;pointer-events:none;
@@ -619,9 +703,16 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   position:relative;z-index:2;
   min-height:100vh;
   min-height:100svh;
-  display:grid;place-items:center;
+  /* .hero-in and .scroll-cue are the only in-flow children here — the toran,
+     frames, corners and mandalas are all absolutely positioned decoration.
+     Giving the cue its own track is what keeps it off the Save-the-Date
+     button: it used to be absolutely positioned against the hero's bottom
+     edge, which reserves no space, so the centred block simply grew down into
+     it (48px of overlap on a 700px-tall window). Now the block is centred in
+     whatever is left above the cue. */
+  display:grid;grid-template-rows:1fr auto;place-items:center;
   text-align:center;
-  padding:clamp(52px,8vh,86px) var(--pad);
+  padding:clamp(52px,8vh,86px) var(--pad) clamp(26px,4vh,40px);
   overflow:hidden;
   background:
     radial-gradient(ellipse 90% 60% at 50% 14%,rgba(216,165,90,.42),transparent 62%),
@@ -740,13 +831,6 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   .names{flex-direction:column;gap:0}
   .names .knot{margin:-2px 0}
 }
-.names-deva{
-  font-family:var(--deva);
-  font-size:clamp(.85rem,2.6vw,1.05rem);
-  color:var(--gold-d);
-  letter-spacing:.16em;
-  margin-top:8px;
-}
 
 .hero-meta{
   display:flex;align-items:center;justify-content:center;
@@ -796,8 +880,8 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 .btn svg{width:14px;height:14px;flex-shrink:0}
 
 .scroll-cue{
-  position:absolute;bottom:clamp(22px,5vh,44px);left:50%;
-  transform:translateX(-50%);z-index:4;
+  position:relative;z-index:4;
+  margin-top:clamp(20px,4vh,38px);
   display:flex;flex-direction:column;align-items:center;gap:10px;
 }
 .scroll-cue span{
@@ -818,6 +902,18 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   0%{transform:translateY(0);opacity:0}
   40%{opacity:1}
   100%{transform:translateY(88px);opacity:0}
+}
+
+/* A laptop browser window is ~700px of viewport, and the hero's fixed parts
+   (Ganesha, shloka, the two names at up to 7.2rem, the date row, the tagline,
+   the button) already come to ~530px. On those windows the padding and the
+   cue are the only slack there is, so they give it back — the cue has to stay
+   visible to be worth having. */
+@media (max-height:780px){
+  #hero{padding:clamp(24px,3.4vh,48px) var(--pad) clamp(14px,2vh,24px)}
+  .ganesha{width:clamp(66px,9vw,92px)}
+  .scroll-cue{margin-top:clamp(12px,1.8vh,20px)}
+  .scroll-cue .line{height:30px}
 }
 </style>
 </head>
@@ -929,7 +1025,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
       <div class="env-card-in">
         <div class="env-card-deva">॥ श्री गणेशाय नमः ॥</div>
         <div class="env-card-names">
-          <span>Badal</span><em class="env-card-amp">&amp;</em><span>Mahima</span>
+          <span><span class="i18n-en">Badal</span><span class="i18n-hi">बादल</span></span><em class="env-card-amp">&amp;</em><span><span class="i18n-en">Mahima</span><span class="i18n-hi">महिमा</span></span>
         </div>
         <div class="env-card-rule"><i></i></div>
         <div class="ecd-dow">Tuesday</div>
@@ -948,7 +1044,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 
 <style>
 /* ══════════════════════════════════════════════════════════════════════
-   9 · INVOCATION + THE NINE DIYAS
+   9 · INVOCATION
    ══════════════════════════════════════════════════════════════════════ */
 #invocation{
   background:linear-gradient(180deg,var(--ink),#F2DEC4 45%,var(--ink));
@@ -1064,11 +1160,10 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 
 .person-name{
   font-family:var(--display);font-size:clamp(1.9rem,5.2vw,2.7rem);
-  font-style:italic;
+  font-style:italic;line-height:1.2;
   background:linear-gradient(178deg,#8A1420 0%,#9E2233 45%,#6B4718 100%);
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
 }
-.person-deva{font-family:var(--deva);font-size:.9rem;color:var(--gold-d);margin-top:2px}
 .person-role{
   font-family:var(--caps);font-size:.58rem;letter-spacing:.4em;
   text-transform:uppercase;color:var(--rose);margin:12px 0 16px;
@@ -1149,7 +1244,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 .muhurat::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
 .muhurat .k{font-family:var(--caps);font-size:.56rem;letter-spacing:.34em;
   text-transform:uppercase;color:var(--gold)}
-.muhurat .v{font-family:var(--display);font-size:1.25rem;color:var(--ivory)}
+.muhurat .v{font-family:var(--display);font-size:1.25rem;line-height:1.4;color:var(--ivory)}
 .muhurat .s{font-family:var(--deva);font-size:.8rem;color:var(--gold-d)}
 
 /* ══════════════════════════════════════════════════════════════════════
@@ -1158,8 +1253,11 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 #ceremonies{
   background:linear-gradient(180deg,var(--ink),#F2DEC4 50%,var(--ink));
 }
+/* minmax(255px) gave four columns at the 1140px wrap, which left the fifth
+   ceremony stranded alone on row two beside three empty columns. 300px caps
+   it at three, so the five cards read as 3 + 2. */
 .cer-grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
   gap:clamp(18px,2.6vw,30px);margin-top:64px;
 }
 .cer{
@@ -1167,6 +1265,10 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   background:linear-gradient(160deg,rgba(216,165,90,.16),rgba(251,243,227,.94));
   border:1px solid rgba(122,82,32,.25);
   overflow:hidden;
+  /* the grid already stretches the cards to equal height; without this the
+     text simply stacked from the top and the "पोशाक" rules sat at a
+     different height in every card of a row */
+  display:flex;flex-direction:column;
   transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .5s;
   will-change:transform;
 }
@@ -1185,22 +1287,18 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   font-family:var(--caps);font-size:.52rem;letter-spacing:.28em;
   text-transform:uppercase;color:var(--gold-d);
 }
-.cer-body{padding:26px 24px 30px;position:relative;z-index:2}
+.cer-body{padding:26px 24px 30px;position:relative;z-index:2;
+  display:flex;flex-direction:column;flex:1}
 .cer-time{
   font-family:var(--caps);font-size:.56rem;letter-spacing:.3em;
   text-transform:uppercase;color:var(--gold);margin-bottom:8px;
 }
 .cer-name{
-  font-family:var(--display);font-size:1.35rem;color:var(--ivory);margin-bottom:2px;
+  font-family:var(--display);font-size:1.35rem;color:var(--ivory);
+  line-height:1.3;margin-bottom:2px;
 }
-.cer-deva{font-family:var(--deva);font-size:.82rem;color:var(--gold-d);margin-bottom:12px}
-.cer-desc{font-size:.93rem;color:var(--dim);line-height:1.85;font-style:italic}
-.cer-dress{
-  margin-top:16px;padding-top:14px;border-top:1px solid rgba(122,82,32,.2);
-  font-family:var(--caps);font-size:.54rem;letter-spacing:.22em;
-  text-transform:uppercase;color:var(--dimmer);
-}
-.cer-dress b{color:var(--gold);font-weight:400}
+.cer-desc{font-size:.93rem;color:var(--dim);line-height:1.85;font-style:italic;
+  margin-top:10px}
 
 /* ══════════════════════════════════════════════════════════════════════
    14 · SAPTAPADI — seven vows
@@ -1223,32 +1321,33 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   background:radial-gradient(ellipse,rgba(224,138,46,.32),transparent 65%);
   pointer-events:none;z-index:-1;
 }
-.vows{
-  max-width:760px;margin:24px auto 0;
-  display:flex;flex-direction:column;gap:6px;
-}
-.vow{
-  display:grid;grid-template-columns:64px 1fr;gap:20px;align-items:start;
-  padding:20px 22px;
+/* a single card whose content is swapped by JS as each of the seven
+   lamps lights, instead of seven stacked blocks a guest has to scroll
+   through — the dim/bright toggle doubles as the "reading" transition
+   between vows */
+.vow-display{
+  max-width:640px;margin:32px auto 0;
+  display:grid;grid-template-columns:72px 1fr;gap:20px;align-items:start;
+  padding:22px 24px;
   border:1px solid transparent;
   opacity:.22;filter:saturate(.2);
-  transition:all .8s var(--ease);
+  transition:all .6s var(--ease);
   text-align:left;
 }
-.vow.in{
+.vow-display.in{
   opacity:1;filter:none;
   border-color:rgba(122,82,32,.25);
   background:linear-gradient(100deg,rgba(216,165,90,.14),transparent 70%);
 }
-.vow-step{position:relative;width:64px}
-.vow-step svg{width:44px;color:var(--gold);opacity:.35;transition:all .8s var(--ease)}
-.vow.in .vow-step svg{opacity:1;filter:drop-shadow(0 0 10px rgba(122,82,32,.5))}
+.vow-step{position:relative;width:72px}
+.vow-step svg{width:44px;color:var(--gold);opacity:.35;transition:all .6s var(--ease)}
+.vow-display.in .vow-step svg{opacity:1;filter:drop-shadow(0 0 10px rgba(122,82,32,.5))}
 .vow-step b{
   position:absolute;right:2px;top:-4px;
   font-family:var(--display);font-size:1.5rem;font-style:italic;
-  color:rgba(122,82,32,.3);transition:color .8s;
+  color:rgba(122,82,32,.3);transition:color .6s;
 }
-.vow.in .vow-step b{color:var(--gold)}
+.vow-display.in .vow-step b{color:var(--gold)}
 .vow-deva{font-family:var(--deva);font-size:.92rem;color:var(--gold-l);line-height:1.9}
 .vow-en{font-size:.98rem;color:var(--dim);font-style:italic;margin-top:4px;line-height:1.8}
 
@@ -1259,7 +1358,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 .venue-art{max-width:920px;margin:56px auto -2px;position:relative}
 .venue-art svg{width:100%}
 .venue-card{
-  max-width:920px;margin:0 auto;
+  max-width:920px;margin:56px auto 0;
   border:1px solid rgba(122,82,32,.3);
   background:rgba(246,231,206,.82);
   display:grid;grid-template-columns:1fr 1fr;
@@ -1275,9 +1374,8 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 .venue-info{padding:clamp(28px,4vw,44px)}
 .venue-name{
   font-family:var(--display);font-size:clamp(1.5rem,3.6vw,2.1rem);
-  color:var(--gold-l);line-height:1.2;
+  color:var(--gold-l);line-height:1.2;margin-bottom:22px;
 }
-.venue-deva{font-family:var(--deva);font-size:.86rem;color:var(--gold-d);margin-bottom:22px}
 .vrow{display:flex;gap:14px;margin-bottom:15px;align-items:flex-start}
 .vrow svg{width:16px;flex-shrink:0;margin-top:5px;color:var(--gold)}
 .vrow div{font-size:.96rem;color:rgba(43,20,10,.76);line-height:1.65}
@@ -1288,7 +1386,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 
 .travel{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
-  gap:18px;max-width:920px;margin:26px auto 0;
+  gap:18px;max-width:920px;margin:40px auto 0;
 }
 .travel-c{
   padding:22px;border:1px solid rgba(122,82,32,.22);
@@ -1382,6 +1480,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 }
 .bl{
   position:relative;padding:26px 22px 22px;
+  display:flex;flex-direction:column;
   border:1px solid rgba(122,82,32,.22);
   background:linear-gradient(155deg,rgba(216,165,90,.16),rgba(251,243,227,.8));
   transition:transform .5s var(--ease),border-color .5s;
@@ -1395,8 +1494,14 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   background:var(--ink);border-radius:50%;padding:2px;
 }
 .bl p{font-size:.97rem;font-style:italic;color:rgba(43,20,10,.8);line-height:1.85}
+.bl-wait{
+  margin-top:10px;padding-top:9px;
+  border-top:1px dashed rgba(122,82,32,.28);
+  font-family:var(--deva);font-size:.72rem;font-style:normal;
+  letter-spacing:.01em;color:var(--gold-d);opacity:.9;
+}
 .bl .who{
-  margin-top:14px;font-family:var(--caps);font-size:.54rem;
+  margin-top:auto;padding-top:14px;font-family:var(--caps);font-size:.54rem;
   letter-spacing:.28em;text-transform:uppercase;color:var(--gold);
 }
 
@@ -1456,7 +1561,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   margin:0 auto 30px}
 .f-names{
   font-family:var(--display);font-style:italic;
-  font-size:clamp(2rem,7vw,3rem);
+  font-size:clamp(2rem,7vw,3rem);line-height:1.2;
   background:linear-gradient(178deg,#8A1420 0%,#9E2233 45%,#6B4718 100%);
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
 }
@@ -1496,7 +1601,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   body{font-size:16px}
   .couple-grid{grid-template-columns:1fr;gap:8px}
   .couple-knot{margin:26px auto;transform:rotate(90deg)}
-  .vow{grid-template-columns:48px 1fr;gap:14px;padding:16px 12px}
+  .vow-display{grid-template-columns:48px 1fr;gap:14px;padding:16px 12px}
   .vow-step{width:48px}
   .vow-step svg{width:34px}
   .f2{grid-template-columns:1fr}
@@ -1542,7 +1647,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
     scroll-behavior:auto !important;
   }
   .rv{opacity:1;transform:none}
-  .vow{opacity:1;filter:none}
+  .vow-display{opacity:1;filter:none}
   #petals,#grain{display:none}
 }
 .sr{
@@ -2607,7 +2712,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   <a href="#ceremonies"  data-sec="ceremonies"><span><span class="i18n-en">Ceremonies</span><span class="i18n-hi">अनुष्ठान</span></span></a>
   <a href="#saptapadi"   data-sec="saptapadi"><span><span class="i18n-en">Vows</span><span class="i18n-hi">सप्तपदी</span></span></a>
   <a href="#venue"       data-sec="venue"><span><span class="i18n-en">Venue</span><span class="i18n-hi">विवाह स्थल</span></span></a>
-  <a href="#gallery"     data-sec="gallery"><span><span class="i18n-en">Gallery</span><span class="i18n-hi">चित्रशाला</span></span></a>
+  <!-- gallery link, HIDDEN FOR NOW: <a href="#gallery" data-sec="gallery"><span><span class="i18n-en">Gallery</span><span class="i18n-hi">चित्रशाला</span></span></a> -->
   <a href="#blessings"   data-sec="blessings"><span><span class="i18n-en">Blessings</span><span class="i18n-hi">आशीर्वाद</span></span></a>
 </nav>
 
@@ -2648,15 +2753,14 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
     <div class="gold-rule rv d2"><i></i></div>
     <p class="hero-eyebrow rv d2">
       <span class="i18n-en">Together with our families, we invite you</span>
-      <span class="i18n-hi">अपने परिवारों के साथ, हम आपको आमंत्रित करते हैं</span>
+      <span class="i18n-hi">अपने परिवारजनों सहित, हम आपको सादर आमंत्रित करते हैं</span>
     </p>
 
     <h1 class="names">
-      <span class="n rv d3">Badal</span>
+      <span class="n rv d3"><span class="i18n-en">Badal</span><span class="i18n-hi">बादल</span></span>
       <span class="knot rv d4"><svg viewBox="0 0 120 62"><use href="#ic-knot"/></svg></span>
-      <span class="n rv d4">Mahima</span>
+      <span class="n rv d4"><span class="i18n-en">Mahima</span><span class="i18n-hi">महिमा</span></span>
     </h1>
-    <p class="names-deva rv d5">बादल &nbsp;·&nbsp; महिमा</p>
 
     <div class="hero-meta rv d5">
       <span><span class="i18n-en">Tuesday</span><span class="i18n-hi">मंगलवार</span></span><i></i>
@@ -2670,7 +2774,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 
     <div class="hero-cta rv d6">
       <button class="btn" id="ics-btn">
-        <span class="i18n-en">Save the Date</span><span class="i18n-hi">तिथि सुरक्षित करें</span>
+        <span class="i18n-en">Save the Date</span><span class="i18n-hi">कैलेंडर में जोड़ें</span>
         <svg viewBox="0 0 24 24"><use href="#ic-cal"/></svg></button>
     </div>
   </div>
@@ -2685,7 +2789,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 <section id="invocation" class="section center">
   <div class="wrap">
     <span class="eyebrow-deva rv">॥ मंगलाचरण ॥</span>
-    <span class="eyebrow rv d1"><span class="i18n-en">The Invocation</span><span class="i18n-hi">आरंभ की प्रार्थना</span></span>
+    <span class="eyebrow rv d1"><span class="i18n-en">The Invocation</span><span class="i18n-hi">श्री गणेश वंदना</span></span>
     <h2 class="title rv d1">
       <span class="i18n-en">Before Anything <em>Begins</em></span>
       <span class="i18n-hi">किसी भी <em>शुरुआत</em> से पहले</span>
@@ -2696,26 +2800,9 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
     <p class="shlok-tr rv d3">
       <span class="i18n-en">O Lord of the curved trunk and mighty form, whose radiance equals ten million suns —
       make this, and all that follows, free of obstacle.</span>
-      <span class="i18n-hi">हे वक्रतुण्ड महाकाय, करोड़ों सूर्यों के समान तेजस्वी —
-      इस कार्य को और आगे आने वाले हर कार्य को निर्विघ्न करें।</span>
+      <span class="i18n-hi">हे वक्रतुण्ड महाकाय, कोटि-कोटि सूर्यों के समान तेजस्वी —
+      हमारे इस कार्य को, और आगे आने वाले हर कार्य को निर्विघ्न कीजिए।</span>
     </p>
-
-    <div class="diya-shelf rv d3" id="diya-shelf" role="img" data-i18n-aria-en="The nine lamps, lit one by one" data-i18n-aria-hi="नौ दीप, एक-एक करके प्रज्वलित" aria-label="The nine lamps, lit one by one"></div>
-    <p class="diya-hint rv d4" id="diya-hint">
-      <span class="i18n-en">Lighting the nine lamps ·</span>
-      <span class="i18n-hi">नौ दीप प्रज्वलित हो रहे हैं ·</span>
-      <span id="diya-count">0</span>
-      <span class="i18n-en">of 9</span>
-      <span class="i18n-hi">में से 9</span>
-    </p>
-
-    <div class="aarti-done" id="aarti-done">
-      <p class="d">॥ तमसो मा ज्योतिर्गमय ॥</p>
-      <p class="e">
-        <span class="i18n-en">Lead us from darkness into light. The lamps are lit — the celebration may begin.</span>
-        <span class="i18n-hi">हमें अंधकार से प्रकाश की ओर ले चलें। दीप जल चुके हैं — उत्सव अब आरंभ हो सकता है।</span>
-      </p>
-    </div>
   </div>
 </section>
 
@@ -2738,16 +2825,15 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
           <div class="petal-ring" data-petalring></div>
           <div class="art"><svg viewBox="0 0 300 300"><use href="#pt-badal"/></svg></div>
         </div>
-        <div class="person-name">Badal</div>
-        <div class="person-deva">बादल</div>
+        <div class="person-name"><span class="i18n-en">Badal</span><span class="i18n-hi">बादल</span></div>
         <div class="person-role"><span class="i18n-en">The Groom</span><span class="i18n-hi">वर</span></div>
         <p class="person-fam">
-          <span class="i18n-en">Son of</span><span class="i18n-hi">सुपुत्र</span><br><b>Shri Rajeev Gupta &amp; Smt. Abha Gupta</b><br><br>
-          <span class="i18n-en">Grandson of</span><span class="i18n-hi">पौत्र</span><br><b>Shri Krishan Bajaj &amp; Late Smt. Maya Devi</b>
+          <span class="i18n-en">Son of</span><span class="i18n-hi">सुपुत्र</span><br><b>Smt. Abha Gupta &amp; Shri Rajeev Gupta</b><br><br>
+          <span class="i18n-en">Grandson of</span><span class="i18n-hi">पौत्र</span><br><b>Late Smt. Maya Devi &amp; Shri Krishan Bajaj</b>
         </p>
         <p class="person-quote">
           <span class="i18n-en">“He keeps every promise he makes, including the quiet ones.”</span>
-          <span class="i18n-hi">"वह हर वादा निभाता है, यहाँ तक कि वे भी जो चुपचाप किए गए हों।"</span>
+          <span class="i18n-hi">“वह हर वादा निभाता है — वे भी, जो कभी कहे ही नहीं गए।”</span>
         </p>
       </div>
 
@@ -2762,16 +2848,15 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
           <div class="petal-ring" data-petalring></div>
           <div class="art"><svg viewBox="0 0 300 300"><use href="#pt-mahima"/></svg></div>
         </div>
-        <div class="person-name">Mahima</div>
-        <div class="person-deva">महिमा</div>
+        <div class="person-name"><span class="i18n-en">Mahima</span><span class="i18n-hi">महिमा</span></div>
         <div class="person-role"><span class="i18n-en">The Bride</span><span class="i18n-hi">वधू</span></div>
         <p class="person-fam">
-          <span class="i18n-en">Daughter of</span><span class="i18n-hi">सुपुत्री</span><br><b>Shri Anubh Jawa &amp; Smt. Sneh Jawa</b><br><br>
-          <span class="i18n-en">Granddaughter of</span><span class="i18n-hi">पौत्री</span><br><b>Late Shri Harish Chandra Jawa &amp; Smt. Shakun Jawa</b>
+          <span class="i18n-en">Daughter of</span><span class="i18n-hi">सुपुत्री</span><br><b>Smt. Sneh Jawa &amp; Shri Anubh Jawa</b><br><br>
+          <span class="i18n-en">Granddaughter of</span><span class="i18n-hi">पौत्री</span><br><b>Smt. Shakun Jawa &amp; Late Shri Harish Chandra Jawa</b>
         </p>
         <p class="person-quote">
           <span class="i18n-en">“She walks into a room and the room decides to be happier.”</span>
-          <span class="i18n-hi">"वह जिस कमरे में प्रवेश करती है, वह कमरा खुद-ब-खुद खुशनुमा हो जाता है।"</span>
+          <span class="i18n-hi">“वह जिस महफ़िल में आ जाए, वह महफ़िल अपने आप खिल उठती है।”</span>
         </p>
       </div>
     </div>
@@ -2782,15 +2867,15 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 <section id="countdown" class="section center">
   <div class="wrap">
     <span class="eyebrow-deva rv">॥ शुभ मुहूर्त ॥</span>
-    <span class="eyebrow rv d1"><span class="i18n-en">Save the Date</span><span class="i18n-hi">तिथि सुरक्षित करें</span></span>
+    <span class="eyebrow rv d1"><span class="i18n-en">Save the Date</span><span class="i18n-hi">शुभ तिथि</span></span>
     <h2 class="title rv d1">
       <span class="i18n-en">Counting Down to <em>Forever</em></span>
-      <span class="i18n-hi"><em>हमेशा</em> के लिए उलटी गिनती</span>
+      <span class="i18n-hi">उस <em>घड़ी</em> की प्रतीक्षा</span>
     </h2>
     <div class="gold-rule rv d2"><i></i></div>
     <p class="lede rv d2">
       <span class="i18n-en">Every turning of the earth brings the fire, the vows and all of you a little closer.</span>
-      <span class="i18n-hi">पृथ्वी का हर घूर्णन अग्नि, वचनों और आप सभी को थोड़ा और करीब लाता है।</span>
+      <span class="i18n-hi">हर बीतता दिन उस अग्नि, उन वचनों और आप सबको थोड़ा और पास ले आता है।</span>
     </p>
 
     <div class="cd-grid rv d3" id="cd-grid" role="timer" aria-live="off">
@@ -2820,13 +2905,13 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
           <svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="45"/><circle class="prog" id="r-s" cx="50" cy="50" r="45"/></svg>
           <div class="cd-num" id="n-s"></div>
         </div>
-        <div class="cd-label"><span class="i18n-en">Seconds</span><small>पल</small></div>
+        <div class="cd-label"><span class="i18n-en">Seconds</span><small>सेकंड</small></div>
       </div>
     </div>
 
     <div class="muhurat rv d4">
       <span class="k"><span class="i18n-en">Wedding Muhurat</span><span class="i18n-hi">विवाह मुहूर्त</span></span>
-      <span class="v">9:00 PM · <span class="i18n-en">Tuesday, 24 November 2026</span><span class="i18n-hi">मंगलवार, 24 नवंबर 2026</span></span>
+      <span class="v">8:00 PM · <span class="i18n-en">Tuesday, 24 November 2026</span><span class="i18n-hi">मंगलवार, 24 नवंबर 2026</span></span>
       <span class="s">मार्गशीर्ष शुक्ल पक्ष · अभिजित मुहूर्त</span>
     </div>
   </div>
@@ -2844,105 +2929,80 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
     <div class="gold-rule rv d2"><i></i></div>
     <p class="lede rv d2">
       <span class="i18n-en">Come for one, come for all. Every hour of it is better with you in it.</span>
-      <span class="i18n-hi">एक दिन आइए या सभी दिन — हर पल आपके साथ और खास बन जाता है।</span>
+      <span class="i18n-hi">एक दिन आइए या तीनों दिन — हर घड़ी आपके साथ और सुंदर हो जाती है।</span>
     </p>
 
     <div class="cer-grid">
       <article class="cer rv d1" data-tilt data-lb="sc-haldi" data-cap="Haldi">
-        <div class="cer-art"><span class="cer-day"><span class="i18n-en">Day One · Mon 23 Nov</span><span class="i18n-hi">पहला दिन · सोम 23 नवं</span></span><svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice"><use href="#sc-haldi"/></svg></div>
+        <div class="cer-art"><span class="cer-day"><span class="i18n-en">Mon 23 Nov</span><span class="i18n-hi">सोम 23 नवं</span></span><svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice"><use href="#sc-haldi"/></svg></div>
         <div class="cer-body" style="text-align:left">
           <div class="cer-time">12:00 PM · <span class="i18n-en">Omi Lala Farm House</span><span class="i18n-hi">ओमी लाला फार्म हाउस</span></div>
-          <h3 class="cer-name i18n-en">Haldi</h3>
-          <div class="cer-deva">हल्दी</div>
+          <h3 class="cer-name"><span class="i18n-en">Haldi</span><span class="i18n-hi">हल्दी</span></h3>
           <p class="cer-desc">
             <span class="i18n-en">Turmeric, sandalwood and rose water, applied by everyone who loves them
             and enjoys it far too much. Wear something you have already forgiven.</span>
-            <span class="i18n-hi">हल्दी, चंदन और गुलाबजल — जिसे लगाने वाला हर कोई बहुत आनंद लेता है।
-            कुछ ऐसा पहनिए जिसे आप पहले ही माफ़ कर चुके हों।</span>
+            <span class="i18n-hi">हल्दी, चंदन और गुलाबजल — जिन्हें अपनों का हर हाथ ज़रूरत से कुछ ज़्यादा ही उत्साह से लगाएगा।
+            ऐसा कुछ पहनिए जिस पर दाग़ लग जाए तो मलाल न हो।</span>
           </p>
-          <div class="cer-dress">
-            <span class="i18n-en">Attire — <b>Marigold yellow</b></span>
-            <span class="i18n-hi">पोशाक — <b>गेंदे जैसा पीला</b></span>
-          </div>
         </div>
       </article>
 
       <article class="cer rv d2" data-tilt data-lb="sc-roka" data-cap="Engagement">
-        <div class="cer-art"><span class="cer-day"><span class="i18n-en">Day One · Mon 23 Nov</span><span class="i18n-hi">पहला दिन · सोम 23 नवं</span></span><svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice"><use href="#sc-roka"/></svg></div>
+        <div class="cer-art"><span class="cer-day"><span class="i18n-en">Mon 23 Nov</span><span class="i18n-hi">सोम 23 नवं</span></span><svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice"><use href="#sc-roka"/></svg></div>
         <div class="cer-body" style="text-align:left">
           <div class="cer-time">7:00 PM · <span class="i18n-en">Omi Lala Farm House</span><span class="i18n-hi">ओमी लाला फार्म हाउस</span></div>
-          <h3 class="cer-name i18n-en">Engagement</h3>
-          <div class="cer-deva">सगाई</div>
+          <h3 class="cer-name"><span class="i18n-en">Engagement</span><span class="i18n-hi">सगाई</span></h3>
           <p class="cer-desc">
             <span class="i18n-en">Rings are exchanged, promises are made out loud, and both families finally
             celebrate together as one. Come dressed for the evening — and for the photographs.</span>
-            <span class="i18n-hi">अंगूठियां बदली जाएंगी, वचन खुलकर लिए जाएंगे, और दोनों परिवार पहली बार एक साथ जश्न मनाएंगे।
-            सांध्य परिधान में आइए — और तस्वीरों के लिए भी तैयार रहिए।</span>
+            <span class="i18n-hi">अंगूठियाँ पहनाई जाएँगी, वचन सबके सामने कहे जाएँगे, और दोनों परिवार पहली बार एक साथ जश्न मनाएँगे।
+            शाम के लिए सज-धज कर आइए — और कैमरे के लिए भी तैयार रहिए।</span>
           </p>
-          <div class="cer-dress">
-            <span class="i18n-en">Attire — <b>Elegant evening wear</b></span>
-            <span class="i18n-hi">पोशाक — <b>सुंदर सांध्य परिधान</b></span>
-          </div>
         </div>
       </article>
 
       <article class="cer rv d3" data-tilt data-lb="sc-baraat" data-cap="Jaimala">
-        <div class="cer-art"><span class="cer-day"><span class="i18n-en">Day Two · Tue 24 Nov</span><span class="i18n-hi">दूसरा दिन · मंगल 24 नवं</span></span><svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice"><use href="#sc-baraat"/></svg></div>
+        <div class="cer-art"><span class="cer-day"><span class="i18n-en">Tue 24 Nov</span><span class="i18n-hi">मंगल 24 नवं</span></span><svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice"><use href="#sc-baraat"/></svg></div>
         <div class="cer-body" style="text-align:left">
-          <div class="cer-time">9:00 PM · <span class="i18n-en">Omi Lala Farm House</span><span class="i18n-hi">ओमी लाला फार्म हाउस</span></div>
-          <h3 class="cer-name i18n-en">Jaimala</h3>
-          <div class="cer-deva">जयमाला</div>
+          <div class="cer-time">8:00 PM · <span class="i18n-en">Omi Lala Farm House</span><span class="i18n-hi">ओमी लाला फार्म हाउस</span></div>
+          <h3 class="cer-name"><span class="i18n-en">Jaimala</span><span class="i18n-hi">जयमाला</span></h3>
           <p class="cer-desc">
             <span class="i18n-en">The baraat arrives, the garlands are exchanged, and the wedding truly begins.
             This is the moment we most want you standing close for.</span>
-            <span class="i18n-hi">बारात पहुंचती है, जयमाला की रस्म होती है, और विवाह की वास्तविक शुरुआत होती है।
-            यही वह पल है जिसमें हम आपको सबसे पास खड़ा देखना चाहते हैं।</span>
+            <span class="i18n-hi">बारात आती है, वरमाला पहनाई जाती है, और विवाह सही मायनों में यहीं से शुरू होता है।
+            यही वह पल है जब हम आपको अपने सबसे पास देखना चाहते हैं।</span>
           </p>
-          <div class="cer-dress">
-            <span class="i18n-en">Attire — <b>Royal reds &amp; gold</b></span>
-            <span class="i18n-hi">पोशाक — <b>शाही लाल एवं सुनहरा</b></span>
-          </div>
         </div>
       </article>
 
       <article class="cer rv d1" data-tilt data-lb="sc-pheras" data-cap="Phere">
-        <div class="cer-art"><span class="cer-day"><span class="i18n-en">Day Two · Tue 24 Nov</span><span class="i18n-hi">दूसरा दिन · मंगल 24 नवं</span></span><svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice"><use href="#sc-pheras"/></svg></div>
+        <div class="cer-art"><span class="cer-day"><span class="i18n-en">Tue 24 Nov</span><span class="i18n-hi">मंगल 24 नवं</span></span><svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice"><use href="#sc-pheras"/></svg></div>
         <div class="cer-body" style="text-align:left">
           <div class="cer-time"><span class="i18n-en">Midnight</span><span class="i18n-hi">मध्यरात्रि</span> · <span class="i18n-en">Omi Lala Farm House</span><span class="i18n-hi">ओमी लाला फार्म हाउस</span></div>
-          <h3 class="cer-name i18n-en">Phere</h3>
-          <div class="cer-deva">फेरे</div>
+          <h3 class="cer-name"><span class="i18n-en">Phere</span><span class="i18n-hi">फेरे</span></h3>
           <p class="cer-desc">
             <span class="i18n-en">The sacred fire is lit, the mantras begin, and seven steps are taken that
             cannot be taken back — right after the Jaimala, once the night has properly settled in.</span>
             <span class="i18n-hi">पवित्र अग्नि प्रज्वलित होती है, मंत्रोच्चार आरंभ होता है, और सात ऐसे कदम उठाए जाते हैं
-            जो कभी वापस नहीं लिए जा सकते — जयमाला के तुरंत बाद, जब रात अच्छी तरह ढल चुकी हो।</span>
+            जो फिर कभी वापस नहीं लिए जा सकते — जयमाला के तुरंत बाद, रात के अच्छी तरह गहरा जाने पर।</span>
           </p>
-          <div class="cer-dress">
-            <span class="i18n-en">Attire — <b>Royal reds &amp; gold</b></span>
-            <span class="i18n-hi">पोशाक — <b>शाही लाल एवं सुनहरा</b></span>
-          </div>
         </div>
       </article>
 
       <article class="cer rv d2" data-tilt>
         <div class="cer-art" style="display:grid;place-items:center;background:linear-gradient(150deg,#F6E7CE,#EFDABD)">
-          <span class="cer-day"><span class="i18n-en">Day Three · Wed 25 Nov</span><span class="i18n-hi">तीसरा दिन · बुध 25 नवं</span></span>
+          <span class="cer-day"><span class="i18n-en">Wed 25 Nov</span><span class="i18n-hi">बुध 25 नवं</span></span>
           <svg viewBox="0 0 120 90" style="width:45%;height:auto;color:#7A5220;transform:none"><use href="#ic-lotus"/></svg>
         </div>
         <div class="cer-body" style="text-align:left">
           <div class="cer-time"><span class="i18n-en">Under the Starlight</span><span class="i18n-hi">तारों की छांव में</span> · <span class="i18n-en">Omi Lala Farm House</span><span class="i18n-hi">ओमी लाला फार्म हाउस</span></div>
-          <h3 class="cer-name i18n-en">Vidai</h3>
-          <div class="cer-deva">विदाई</div>
+          <h3 class="cer-name"><span class="i18n-en">Vidai</span><span class="i18n-hi">विदाई</span></h3>
           <p class="cer-desc">
             <span class="i18n-en">The hardest, kindest moment of it all. Bring a handkerchief —
             everyone always says they won't need one.</span>
-            <span class="i18n-hi">यह सबसे कठिन और सबसे भावुक पल होगा। एक रूमाल साथ रखिए —
-            हर कोई कहता है ज़रूरत नहीं पड़ेगी, पर पड़ ही जाती है।</span>
+            <span class="i18n-hi">यह सबसे कठिन और सबसे भावुक घड़ी होगी। एक रूमाल साथ रखिए —
+            कहता हर कोई है कि ज़रूरत नहीं पड़ेगी, पर पड़ ही जाती है।</span>
           </p>
-          <div class="cer-dress">
-            <span class="i18n-en">Attire — <b>As you are, only warmer</b></span>
-            <span class="i18n-hi">पोशाक — <b>जैसे हैं वैसे ही, बस थोड़ा गर्म कपड़ों में</b></span>
-          </div>
         </div>
       </article>
     </div>
@@ -2962,8 +3022,8 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
     <p class="lede rv d2">
       <span class="i18n-en">In the Vedic rite, a marriage is not sealed by a signature. It is sealed by walking —
       seven steps, seven promises, spoken aloud to the fire that witnesses them.</span>
-      <span class="i18n-hi">वैदिक रीति में विवाह हस्ताक्षर से नहीं, चलकर सिद्ध होता है —
-      सात कदम, सात वचन, अग्नि के समक्ष ऊँचे स्वर में कहे गए।</span>
+      <span class="i18n-hi">वैदिक रीति में विवाह किसी हस्ताक्षर से नहीं, साथ चलकर पूरा होता है —
+      सात कदम, सात वचन, अग्नि को साक्षी मानकर ऊँचे स्वर में कहे गए।</span>
     </p>
 
     <div class="agni rv rv-s d3">
@@ -2980,91 +3040,35 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
       </svg>
     </div>
 
-    <div class="vows" id="vows">
-      <div class="vow">
-        <div class="vow-step"><b>१</b><svg viewBox="0 0 60 82"><use href="#ic-step"/></svg></div>
-        <div>
-          <p class="vow-deva">ॐ इषे एकपदी भव</p>
-          <p class="vow-en">
-            <span class="i18n-en">With the first step, we will provide for our home and nourish each other —
-            in body, and in the parts that are harder to feed.</span>
-            <span class="i18n-hi">पहले कदम से, हम अपने घर के लिए भरण-पोषण करेंगे और एक-दूसरे का पोषण करेंगे —
-            तन से, और उन हिस्सों से भी जिन्हें पोषित करना कठिन होता है।</span>
-          </p>
-        </div>
+    <div class="diya-shelf rv d3" id="vow-diyas" role="img" data-i18n-aria-en="The seven lamps, lit with each vow" data-i18n-aria-hi="सात दीप, हर वचन के साथ प्रज्वलित" aria-label="The seven lamps, lit with each vow"></div>
+
+    <div class="vow-display" id="vow-display">
+      <div class="vow-step" id="vow-step"><b>१</b><svg viewBox="0 0 60 82"><use href="#ic-step"/></svg></div>
+      <div>
+        <p class="vow-deva" id="vow-deva">ॐ इषे एकपदी भव</p>
+        <p class="vow-en" id="vow-en">
+          <span class="i18n-en">With the first step, we will provide for our home and nourish each other —
+          in body, and in the parts that are harder to feed.</span>
+          <span class="i18n-hi">पहले कदम पर — हम अपने घर का भरण-पोषण करेंगे और एक-दूसरे को सँभालेंगे;
+          तन का भी, और मन का भी, जिसे भर पाना कहीं अधिक कठिन है।</span>
+        </p>
       </div>
-      <div class="vow">
-        <div class="vow-step"><b>२</b><svg viewBox="0 0 60 82"><use href="#ic-step"/></svg></div>
-        <div>
-          <p class="vow-deva">ॐ ऊर्जे द्विपदी भव</p>
-          <p class="vow-en">
-            <span class="i18n-en">With the second, we will grow in strength together, and guard each other's
-            health, courage and rest.</span>
-            <span class="i18n-hi">दूसरे कदम से, हम साथ मिलकर शक्ति में बढ़ेंगे, और एक-दूसरे के
-            स्वास्थ्य, साहस और विश्राम की रक्षा करेंगे।</span>
-          </p>
-        </div>
-      </div>
-      <div class="vow">
-        <div class="vow-step"><b>३</b><svg viewBox="0 0 60 82"><use href="#ic-step"/></svg></div>
-        <div>
-          <p class="vow-deva">ॐ रायस्पोषाय त्रिपदी भव</p>
-          <p class="vow-en">
-            <span class="i18n-en">With the third, we will prosper — and hold what we earn with open hands,
-            never closed ones.</span>
-            <span class="i18n-hi">तीसरे कदम से, हम समृद्ध होंगे — और जो कमाएंगे उसे खुले हाथों से थामेंगे,
-            कभी बंद मुट्ठी से नहीं।</span>
-          </p>
-        </div>
-      </div>
-      <div class="vow">
-        <div class="vow-step"><b>४</b><svg viewBox="0 0 60 82"><use href="#ic-step"/></svg></div>
-        <div>
-          <p class="vow-deva">ॐ मायोभव्याय चतुष्पदी भव</p>
-          <p class="vow-en">
-            <span class="i18n-en">With the fourth, we will share every joy so it doubles, and every sorrow
-            so it weighs half of what it did.</span>
-            <span class="i18n-hi">चौथे कदम से, हम हर खुशी को बांटेंगे ताकि वह दोगुनी हो जाए,
-            और हर दुख को बांटेंगे ताकि वह आधा रह जाए।</span>
-          </p>
-        </div>
-      </div>
-      <div class="vow">
-        <div class="vow-step"><b>५</b><svg viewBox="0 0 60 82"><use href="#ic-step"/></svg></div>
-        <div>
-          <p class="vow-deva">ॐ प्रजाभ्यः पञ्चपदी भव</p>
-          <p class="vow-en">
-            <span class="i18n-en">With the fifth, we will care for family — those who raised us,
-            and whoever is still to come.</span>
-            <span class="i18n-hi">पांचवें कदम से, हम परिवार की देखभाल करेंगे — उनकी जिन्होंने हमें पाला,
-            और उनकी भी जो अभी आने बाकी हैं।</span>
-          </p>
-        </div>
-      </div>
-      <div class="vow">
-        <div class="vow-step"><b>६</b><svg viewBox="0 0 60 82"><use href="#ic-step"/></svg></div>
-        <div>
-          <p class="vow-deva">ॐ ऋतुभ्यः षट्पदी भव</p>
-          <p class="vow-en">
-            <span class="i18n-en">With the sixth, we will keep faith through every season — the easy years
-            and the ones that ask more of us.</span>
-            <span class="i18n-hi">छठे कदम से, हम हर मौसम में विश्वास बनाए रखेंगे — आसान वर्षों में भी,
-            और उनमें भी जो हमसे अधिक मांगें।</span>
-          </p>
-        </div>
-      </div>
-      <div class="vow">
-        <div class="vow-step"><b>७</b><svg viewBox="0 0 60 82"><use href="#ic-step"/></svg></div>
-        <div>
-          <p class="vow-deva">ॐ सखे सप्तपदी भव</p>
-          <p class="vow-en">
-            <span class="i18n-en">And with the seventh — we are friends. Of everything said tonight,
-            let that be the promise we never break.</span>
-            <span class="i18n-hi">और सातवें कदम से — हम मित्र हैं। आज रात कही गई हर बात में से,
-            यही वह वचन हो जिसे हम कभी न तोड़ें।</span>
-          </p>
-        </div>
-      </div>
+    </div>
+
+    <p class="diya-hint rv d4" id="vow-hint">
+      <span class="i18n-en">Walking the seven steps ·</span>
+      <span class="i18n-hi">सात कदमों की यात्रा · 7 में से</span>
+      <span id="vow-count">0</span>
+      <span class="i18n-en">of 7</span>
+      <span class="i18n-hi">पूर्ण</span>
+    </p>
+
+    <div class="aarti-done" id="vows-done">
+      <p class="d">॥ इति सप्तपदी ॥</p>
+      <p class="e">
+        <span class="i18n-en">Seven steps taken, seven promises made — sealed by the fire that witnessed them.</span>
+        <span class="i18n-hi">सात कदम चले, सात वचन लिए गए — उस अग्नि की साक्षी में, जिसने इन्हें सुना।</span>
+      </p>
     </div>
   </div>
 </section>
@@ -3073,7 +3077,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 <section id="venue" class="section">
   <div class="wrap center">
     <span class="eyebrow-deva rv">॥ विवाह स्थल ॥</span>
-    <span class="eyebrow rv d1"><span class="i18n-en">Where It Happens</span><span class="i18n-hi">यह यहां होगा</span></span>
+    <span class="eyebrow rv d1"><span class="i18n-en">Where It Happens</span><span class="i18n-hi">यह सब यहीं होगा</span></span>
     <h2 class="title rv d1">
       <span class="i18n-en">The <em>Farm House</em></span>
       <span class="i18n-hi"><em>फार्म हाउस</em></span>
@@ -3082,8 +3086,8 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
     <p class="lede rv d2">
       <span class="i18n-en">A quiet farmhouse just outside Chandausi, with open lawns and room enough
       for everyone we love. We could not think of a better place to begin.</span>
-      <span class="i18n-hi">चंदौसी के ठीक बाहर एक शांत फार्महाउस, खुले लॉन और उन सभी के लिए पर्याप्त जगह
-      जिन्हें हम प्यार करते हैं। हमें इससे बेहतर शुरुआत की जगह नहीं सूझी।</span>
+      <span class="i18n-hi">चंदौसी से थोड़ा बाहर एक शांत फार्म हाउस — खुले लॉन, और अपने सभी प्रियजनों के लिए
+      पूरी जगह। शुरुआत के लिए इससे बेहतर ठिकाना हमें नहीं सूझा।</span>
     </p>
   </div>
 
@@ -3093,17 +3097,16 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
         src="https://maps.google.com/maps?q=28.4318165,78.7994372&amp;z=15&amp;ie=UTF8&amp;iwloc=&amp;output=embed"></iframe>
     </div>
     <div class="venue-info">
-      <h3 class="venue-name">Omi Lala Farm House</h3>
-      <p class="venue-deva">ओमी लाला फार्म हाउस · चंदौसी</p>
+      <h3 class="venue-name"><span class="i18n-en">Omi Lala Farm House</span><span class="i18n-hi">ओमी लाला फार्म हाउस</span></h3>
 
       <div class="vrow"><svg viewBox="0 0 24 24"><use href="#ic-pin"/></svg>
         <div><b><span class="i18n-en">Address</span><span class="i18n-hi">पता</span></b><span class="i18n-en">Chandausi, Uttar Pradesh, India</span><span class="i18n-hi">चंदौसी, उत्तर प्रदेश, भारत</span></div></div>
       <div class="vrow"><svg viewBox="0 0 24 24"><use href="#ic-car"/></svg>
-        <div><b><span class="i18n-en">Arrival</span><span class="i18n-hi">आगमन</span></b><span class="i18n-en">Self-drive or taxi directly to the farm house — detailed directions to follow</span><span class="i18n-hi">फार्म हाउस तक सीधे स्वयं गाड़ी चलाकर या टैक्सी से आएं — विस्तृत दिशा-निर्देश शीघ्र साझा किए जाएंगे</span></div></div>
+        <div><b><span class="i18n-en">Arrival</span><span class="i18n-hi">आगमन</span></b><span class="i18n-en">Self-drive or taxi directly to the farm house — detailed directions to follow</span><span class="i18n-hi">अपनी गाड़ी से या टैक्सी लेकर सीधे फार्म हाउस पहुँचें — रास्ते की पूरी जानकारी जल्द भेज दी जाएगी</span></div></div>
       <div class="vrow"><svg viewBox="0 0 24 24"><use href="#ic-cal"/></svg>
         <div><b><span class="i18n-en">Dates</span><span class="i18n-hi">तिथियां</span></b><span class="i18n-en">Monday 23 — Wednesday 25 November 2026</span><span class="i18n-hi">सोमवार 23 — बुधवार 25 नवंबर 2026</span></div></div>
       <div class="vrow"><svg viewBox="0 0 24 24"><use href="#ic-clock"/></svg>
-        <div><b><span class="i18n-en">Key timings</span><span class="i18n-hi">मुख्य समय</span></b><span class="i18n-en">Haldi 12:00 PM · Engagement 7:00 PM · Jaimala 9:00 PM · Phere Midnight · Vidai — under the starlight</span><span class="i18n-hi">हल्दी दोपहर 12:00 · सगाई शाम 7:00 · जयमाला रात 9:00 · फेरे मध्यरात्रि · विदाई — तारों की छांव में</span></div></div>
+        <div><b><span class="i18n-en">Key timings</span><span class="i18n-hi">मुख्य समय</span></b><span class="i18n-en">Haldi 12:00 PM · Engagement 7:00 PM · Jaimala 8:00 PM · Phere Midnight · Vidai — under the starlight</span><span class="i18n-hi">हल्दी दोपहर 12:00 · सगाई शाम 7:00 · जयमाला रात 8:00 · फेरे मध्यरात्रि · विदाई — तारों की छांव में</span></div></div>
       <div class="vrow"><svg viewBox="0 0 24 24"><use href="#ic-car"/></svg>
         <div><b><span class="i18n-en">Parking</span><span class="i18n-hi">पार्किंग</span></b><span class="i18n-en">On-site parking available</span><span class="i18n-hi">स्थल पर पार्किंग उपलब्ध है</span></div></div>
 
@@ -3120,30 +3123,35 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
     <div class="travel-c rv d1"><h4><span class="i18n-en">Getting to Chandausi</span><span class="i18n-hi">चंदौसी कैसे पहुंचें</span></h4>
       <p>
         <span class="i18n-en">Reach out to us and we'll help you plan the easiest way in, whether by road, rail, or air.</span>
-        <span class="i18n-hi">हमसे संपर्क करें, हम सड़क, रेल या हवाई मार्ग से आने का सबसे आसान तरीका बताने में आपकी मदद करेंगे।</span>
+        <span class="i18n-hi">हमें बताइए — सड़क, रेल या हवाई, जिस भी रास्ते आना हो, सबसे आसान तरीका हम बता देंगे।</span>
       </p></div>
     <div class="travel-c rv d2"><h4><span class="i18n-en">Where to Stay</span><span class="i18n-hi">कहाँ ठहरें</span></h4>
       <p>
         <span class="i18n-en">Let us know if you need help arranging a place to stay nearby —
         mention "Badal &amp; Mahima" when booking, or ask us and we will arrange it.</span>
-        <span class="i18n-hi">यदि आपको आस-पास ठहरने की व्यवस्था में सहायता चाहिए तो हमें बताएं —
-        बुकिंग करते समय "बादल एवं महिमा" का उल्लेख करें, या हमसे पूछें और हम व्यवस्था कर देंगे।</span>
+        <span class="i18n-hi">आस-पास ठहरने का इंतज़ाम चाहिए तो बस कह दीजिए —
+        बुकिंग के समय “बादल एवं महिमा” का नाम बता दीजिए, या हमसे कहिए, हम करा देंगे।</span>
       </p></div>
     <div class="travel-c rv d3"><h4><span class="i18n-en">Late November</span><span class="i18n-hi">नवंबर के अंत में</span></h4>
       <p>
         <span class="i18n-en">Expect crisp North Indian winter mornings and mild afternoons —
         bring a shawl for the evenings.</span>
-        <span class="i18n-hi">उत्तर भारत की ठंडी सुबहें और हल्की गुनगुनी दोपहरें रहेंगी —
-        शामों के लिए एक शॉल साथ रखें।</span>
+        <span class="i18n-hi">उत्तर भारत की सर्द सुबहें और हल्की गुनगुनी दोपहरें होंगी —
+        शाम के लिए एक शॉल साथ रखिएगा।</span>
       </p></div>
   </div>
 </section>
 
 <!-- ══════════════════ GALLERY ══════════════════ -->
+<!-- GALLERY — HIDDEN FOR NOW. To bring it back, delete this opening comment
+     and the matching closer below, and un-comment the two nav links marked
+     "gallery link" (the scroll-spy pairs #nav links to sections by index, so
+     the section and its nav entry have to come back together).
+
 <section id="gallery" class="section">
   <div class="wrap center">
     <span class="eyebrow-deva rv">॥ चित्रशाला ॥</span>
-    <span class="eyebrow rv d1"><span class="i18n-en">Drawn, Not Photographed</span><span class="i18n-hi">चित्रित, फोटो नहीं</span></span>
+    <span class="eyebrow rv d1"><span class="i18n-en">Drawn, Not Photographed</span><span class="i18n-hi">बनाई गई, खींची नहीं</span></span>
     <h2 class="title rv d1">
       <span class="i18n-en">The <em>Gallery</em></span>
       <span class="i18n-hi"><em>चित्रों</em> की दुनिया</span>
@@ -3152,8 +3160,8 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
     <p class="lede rv d2">
       <span class="i18n-en">Every image in this invitation was drawn as vector art — no photographs, no stock.
       The mandalas below are generated fresh in your browser each time you open this page.</span>
-      <span class="i18n-hi">इस निमंत्रण की हर छवि वेक्टर आर्ट के रूप में हाथ से बनाई गई है — कोई तस्वीर नहीं, कोई स्टॉक इमेज नहीं।
-      नीचे दिए मंडल हर बार पेज खोलने पर आपके ब्राउज़र में नए सिरे से बनते हैं।</span>
+      <span class="i18n-hi">इस निमंत्रण का हर चित्र हाथ से वेक्टर आर्ट में बनाया गया है — न कोई तस्वीर, न कोई स्टॉक इमेज।
+      नीचे के मंडल हर बार पन्ना खुलने पर आपके ब्राउज़र में नए सिरे से बनते हैं।</span>
     </p>
 
     <div class="gal">
@@ -3181,6 +3189,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
     </div>
   </div>
 </section>
+-->
 
 <!-- ══════════════════ BLESSINGS WALL ══════════════════ -->
 <section id="blessings" class="section center">
@@ -3195,8 +3204,8 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
     <p class="lede rv d2">
       <span class="i18n-en">Write them a line. It stays on this page, and we will read every one of them aloud
       on the terrace on the last night.</span>
-      <span class="i18n-hi">उनके लिए एक पंक्ति लिखें। यह इस पृष्ठ पर बनी रहेगी, और हम आख़िरी रात
-      छत पर हर एक को ऊँची आवाज़ में पढ़ेंगे।</span>
+      <span class="i18n-hi">उनके लिए दो पंक्तियाँ लिख जाइए। वे इस पन्ने पर बनी रहेंगी, और आख़िरी रात
+      छत पर हम एक-एक को ऊँची आवाज़ में पढ़ेंगे।</span>
     </p>
 
     <form class="bl-compose rv d3" id="bl-form" novalidate>
@@ -3227,20 +3236,20 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   </p>
   <p class="f-shlok-tr">
     <span class="i18n-en">“This thread I tie is the reason of my life. Wear it, and live a hundred autumns.”</span>
-    <span class="i18n-hi">"यह धागा जो मैं बांधता हूं, यही मेरे जीवन का उद्देश्य है। इसे धारण करो, और सौ वर्ष जियो।"</span>
+    <span class="i18n-hi">“यह मंगल-सूत्र जो मैं तुम्हारे कंठ में बाँध रहा हूँ, यही मेरे जीवन का आधार है। इसे धारण करो, और सौ शरद ऋतुएँ जियो।”</span>
   </p>
 
-  <div class="f-names">Badal &amp; Mahima</div>
+  <div class="f-names"><span class="i18n-en">Badal &amp; Mahima</span><span class="i18n-hi">बादल एवं महिमा</span></div>
   <div class="f-sub">
     <span class="i18n-en">Sacred Union</span><span class="i18n-hi">मंगल परिणय</span>
-    · मार्गशीर्ष शुक्ल पक्ष ·
+    · <span class="deva-inline">मार्गशीर्ष शुक्ल पक्ष</span> ·
     <span class="i18n-en">Chandausi</span><span class="i18n-hi">चंदौसी</span>
   </div>
 
   <nav class="f-nav">
     <a href="#hero"><span class="i18n-en">Home</span><span class="i18n-hi">प्रारंभ</span></a><a href="#couple"><span class="i18n-en">The Couple</span><span class="i18n-hi">वधू वर</span></a>
     <a href="#ceremonies"><span class="i18n-en">Ceremonies</span><span class="i18n-hi">अनुष्ठान</span></a><a href="#saptapadi"><span class="i18n-en">Vows</span><span class="i18n-hi">सप्तपदी</span></a>
-    <a href="#venue"><span class="i18n-en">Venue</span><span class="i18n-hi">विवाह स्थल</span></a><a href="#gallery"><span class="i18n-en">Gallery</span><span class="i18n-hi">चित्रशाला</span></a>
+    <a href="#venue"><span class="i18n-en">Venue</span><span class="i18n-hi">विवाह स्थल</span></a><!-- gallery link, HIDDEN FOR NOW: <a href="#gallery"><span class="i18n-en">Gallery</span><span class="i18n-hi">चित्रशाला</span></a> -->
   </nav>
 
   <!-- ✎ EDIT : contact numbers -->
@@ -3251,7 +3260,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 
   <p class="f-copy">
     <span class="i18n-en">Every line, lamp and mandala on this page was drawn in code</span>
-    <span class="i18n-hi">इस पृष्ठ की हर रेखा, हर दीप और हर मंडल कोड में बनाई गई है</span>
+    <span class="i18n-hi">इस पन्ने की हर रेखा, हर दीप और हर मंडल कोड से बना है</span>
     &nbsp;·&nbsp; ॐ</p>
 </footer>
 
@@ -3273,11 +3282,14 @@ const CONFIG = {
   bride      : 'Mahima',
   // the moment the Jaimala begins (ISO 8601 with timezone offset) — Phere
   // follows straight after, around midnight the same night
-  muhurat    : '2026-11-24T21:00:00+05:30',
-  // same moment in UTC, for the calendar file (21:00 IST = 15:30 UTC),
+  muhurat    : '2026-11-24T20:00:00+05:30',
+  // same moment in UTC, for the calendar file (20:00 IST = 14:30 UTC),
   // block runs through the Phere into the early hours of the 25th
-  icsStartUTC: '20261124T153000Z',
+  icsStartUTC: '20261124T143000Z',
   icsEndUTC  : '20261124T193000Z',
+  // ✎ EDIT : paste the Apps Script web-app URL here (BLESSINGS-SETUP.md).
+  // Left empty, the Blessings Wall falls back to this-browser-only storage.
+  blessingsURL: '',
   venue      : 'Omi Lala Farm House, Chandausi, Uttar Pradesh, India',
   shareText  : 'Badal & Mahima are getting married — 24 November 2026, Omi Lala Farm House, Chandausi.'
 };
@@ -3483,13 +3495,16 @@ function breakSeal(e){
   }
 
   envelope.classList.add('opened');
+  /* the card's rise is .6s delay + 1.3s travel; tearing the portal down at
+     1500ms cut it off mid-flight, which is why the letter never appeared to
+     come out at all. 2600ms lets it land and be read for a beat first. */
   setTimeout(() => {
     portal.classList.add('gone');
     document.body.classList.remove('locked');
     document.body.classList.add('entered');
     startPetals();
     typeShlok();
-  }, REDUCED ? 0 : 1500);
+  }, REDUCED ? 0 : 2600);
 }
 portal.addEventListener('click', breakSeal);
 addEventListener('keydown', e => {
@@ -3623,11 +3638,6 @@ const revealIO = new IntersectionObserver((es, o) => {
 }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
 $$('.rv').forEach(el => revealIO.observe(el));
 
-const stepIO = new IntersectionObserver(es => {
-  es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-}, { threshold: 0.45, rootMargin: '0px 0px -12% 0px' });
-$$('.vow').forEach(el => stepIO.observe(el));
-
 /* ══════════════════════════════════════════════════════════════════════
    5 · SCROLL-LINKED CHROME
    ══════════════════════════════════════════════════════════════════════ */
@@ -3696,10 +3706,37 @@ function typeShlok(){
 }
 
 /* ══════════════════════════════════════════════════════════════════════
-   7 · THE NINE DIYAS
+   7 · THE SEVEN DIYAS, LIT WITH THE SEVEN VOWS
+   One lamp per phera. Lighting a lamp swaps the vow card below it to that
+   step's text, so the whole rite reads as one compact, self-playing
+   moment instead of seven long blocks a guest has to scroll through.
    ══════════════════════════════════════════════════════════════════════ */
-const shelf = $('#diya-shelf');
+const shelf = $('#vow-diyas');
 let litCount = 0;
+
+const VOWS = [
+  { num: '१', deva: 'ॐ इषे एकपदी भव',
+    en: 'With the first step, we will provide for our home and nourish each other — in body, and in the parts that are harder to feed.',
+    hi: 'पहले कदम पर — हम अपने घर का भरण-पोषण करेंगे और एक-दूसरे को सँभालेंगे; तन का भी, और मन का भी, जिसे भर पाना कहीं अधिक कठिन है।' },
+  { num: '२', deva: 'ॐ ऊर्जे द्विपदी भव',
+    en: "With the second, we will grow in strength together, and guard each other's health, courage and rest.",
+    hi: 'दूसरे कदम पर — हम साथ मिलकर बलवान होंगे, और एक-दूसरे के स्वास्थ्य, साहस और विश्राम की रक्षा करेंगे।' },
+  { num: '३', deva: 'ॐ रायस्पोषाय त्रिपदी भव',
+    en: 'With the third, we will prosper — and hold what we earn with open hands, never closed ones.',
+    hi: 'तीसरे कदम पर — हम समृद्ध होंगे, और जो कमाएँगे उसे खुले हाथों से थामेंगे, कभी बंद मुट्ठी में नहीं।' },
+  { num: '४', deva: 'ॐ मायोभव्याय चतुष्पदी भव',
+    en: 'With the fourth, we will share every joy so it doubles, and every sorrow so it weighs half of what it did.',
+    hi: 'चौथे कदम पर — हर खुशी बाँटेंगे कि वह दोगुनी हो जाए, और हर दुख बाँटेंगे कि वह आधा रह जाए।' },
+  { num: '५', deva: 'ॐ प्रजाभ्यः पञ्चपदी भव',
+    en: 'With the fifth, we will care for family — those who raised us, and whoever is still to come.',
+    hi: 'पाँचवें कदम पर — हम परिवार को सँभालेंगे; उन्हें भी जिन्होंने हमें पाला, और उन्हें भी जिन्हें अभी आना बाकी है।' },
+  { num: '६', deva: 'ॐ ऋतुभ्यः षट्पदी भव',
+    en: 'With the sixth, we will keep faith through every season — the easy years and the ones that ask more of us.',
+    hi: 'छठे कदम पर — हर ऋतु में साथ निभाएँगे; सहज बरसों में भी, और उनमें भी जो हमसे कुछ ज़्यादा माँगें।' },
+  { num: '७', deva: 'ॐ सखे सप्तपदी भव',
+    en: 'And with the seventh — we are friends. Of everything said tonight, let that be the promise we never break.',
+    hi: 'और सातवें कदम पर — अब हम मित्र हैं। आज रात कहे गए सब वचनों में, यही वह वचन हो जिसे हम कभी न तोड़ें।' }
+];
 
 /* The lamp is written out inline rather than pulled from the sprite with
    <use>: stylesheet rules cannot cross into a use-element's shadow tree, so
@@ -3724,7 +3761,7 @@ const DIYA_SVG = `
 </svg>`;
 
 const diyas = [];
-for (let i = 0; i < 9; i++){
+for (let i = 0; i < 7; i++){
   const b = document.createElement('div');
   b.className = 'diya';
   b.setAttribute('aria-hidden', 'true');
@@ -3733,20 +3770,34 @@ for (let i = 0; i < 9; i++){
   diyas.push(b);
 }
 
-/* the lamps light themselves, one by one, once a guest scrolls to them */
+/* the lamps light themselves, one by one, once a guest scrolls to them —
+   spaced out enough to actually read each vow before the next lights */
 const diyaIO = new IntersectionObserver((es, o) => {
   if (!es.some(e => e.isIntersecting)) return;
   o.disconnect();
-  diyas.forEach((b, i) => setTimeout(() => lightDiya(b), REDUCED ? i * 60 : 500 + i * 550));
+  diyas.forEach((b, i) => setTimeout(() => lightDiya(b, i), REDUCED ? i * 60 : 600 + i * 4200));
 }, { threshold: 0.4 });
 diyaIO.observe(shelf);
 
-function lightDiya(b){
+function showVow(i){
+  const v = VOWS[i];
+  const display = $('#vow-display');
+  display.classList.remove('in');
+  setTimeout(() => {
+    $('#vow-step').innerHTML = `<b>${v.num}</b><svg viewBox="0 0 60 82"><use href="#ic-step"/></svg>`;
+    $('#vow-deva').textContent = v.deva;
+    $('#vow-en').innerHTML = `<span class="i18n-en">${v.en}</span><span class="i18n-hi">${v.hi}</span>`;
+    display.classList.add('in');
+  }, i === 0 ? 0 : (REDUCED ? 0 : 300));
+}
+
+function lightDiya(b, i){
   if (b.classList.contains('lit')) return;
   b.classList.add('lit');
   litCount++;
-  $('#diya-count').textContent = litCount;
-  document.documentElement.style.setProperty('--warmth', (litCount / 9 * 0.95).toFixed(3));
+  $('#vow-count').textContent = litCount;
+  showVow(i);
+  document.documentElement.style.setProperty('--warmth', (litCount / 7 * 0.95).toFixed(3));
 
   /* a few sparks off the wick */
   if (!REDUCED){
@@ -3761,9 +3812,9 @@ function lightDiya(b){
     }
   }
 
-  if (litCount === 9){
-    $('#diya-hint').style.opacity = '0';
-    $('#aarti-done').classList.add('show');
+  if (litCount === 7){
+    $('#vow-hint').style.opacity = '0';
+    $('#vows-done').classList.add('show');
     burstPetals(40);
   }
 }
@@ -3793,10 +3844,18 @@ function buildOdo(el, len){
     el.appendChild(digit);
   }
 }
-function setOdo(el, val, len){
-  const str = String(Math.max(0, val)).padStart(len, '0').slice(-len);
+/* `trim` drops the leading zeros instead of showing them: the days reel is
+   three digits wide so it can hold 365+, but "071 days" reads like a serial
+   number. Hours/minutes/seconds keep their padding — two digits is how a
+   clock is written. .cd-num is a centred flex row, so hiding a digit
+   re-centres the rest on its own. */
+function setOdo(el, val, len, trim){
+  const raw = String(Math.max(0, val));
+  const str = raw.padStart(len, '0').slice(-len);
+  const lead = trim ? len - Math.min(raw.length, len) : 0;
   [...el.children].forEach((d, i) => {
     d.firstChild.style.transform = `translateY(-${str[i]}em)`;
+    d.style.display = i < lead ? 'none' : '';
   });
 }
 
@@ -3817,7 +3876,7 @@ function updateCountdown(){
   const m = Math.floor(diff % 36e5 / 6e4);
   const s = Math.floor(diff % 6e4 / 1e3);
 
-  setOdo($('#n-d'), d, 3); setOdo($('#n-h'), h, 2);
+  setOdo($('#n-d'), d, 3, true); setOdo($('#n-h'), h, 2);
   setOdo($('#n-m'), m, 2); setOdo($('#n-s'), s, 2);
 
   setRing('#r-d', d % 365, 365); setRing('#r-h', h, 24);
@@ -3912,53 +3971,198 @@ lb.addEventListener('click', e => { if (e.target === lb) closeLB(); });
 addEventListener('keydown', e => { if (e.key === 'Escape' && lb.classList.contains('on')) closeLB(); });
 
 /* ══════════════════════════════════════════════════════════════════════
-   11 · BLESSINGS WALL  (kept in this browser)
+   11 · BLESSINGS WALL  (shared, via the Google Sheet in CONFIG.blessingsURL)
+
+   Every guest posts to one Google Apps Script web app, which appends an
+   UNAPPROVED row to a Sheet the couple owns. The wall reads back only the
+   approved rows — so a blessing is visible to the guest who wrote it from
+   the moment they write it, and to everybody else once it is ticked off in
+   the Sheet. See BLESSINGS-SETUP.md.
+
+   Never showing the same blessing twice is the fiddly part, and it is the
+   server-assigned id that does it: the guest's own copy is kept locally
+   under that id, and dropped the instant the same id comes back in the
+   approved list — so it changes from "mine, pending" to "on the wall"
+   rather than appearing as two cards.
+
+   With CONFIG.blessingsURL left empty the whole thing degrades to what it
+   used to be — kept in this one browser — so the page still works before
+   the Sheet exists, and still works if the Sheet is ever unreachable.
    ══════════════════════════════════════════════════════════════════════ */
-const BL_KEY = 'bm-blessings-v1';
+const BL_KEY = 'bm-blessings-v2';   // v1 entries carried no id to dedupe on
+const BL_URL = (CONFIG.blessingsURL || '').trim();
 const SEED_BLESSINGS = [
-  { who: 'Nani',              msg: 'I have watched both of you grow up. Now grow old, slowly, and together.' },
-  { who: 'The Cousins',       msg: 'We have already booked the front row for the sangeet. No refunds. Congratulations.' },
-  { who: 'Mrs. Iyer, Flat 4B','msg': 'May your home always smell of something cooking and sound like someone laughing.' }
+  { who: 'Nani', whoHi: 'नानी',
+    msg: 'I have watched both of you grow up. Now grow old, slowly, and together.',
+    hi : 'तुम दोनों को बड़ा होते देखा है। अब साथ-साथ, धीरे-धीरे बूढ़े होना।' },
+  { who: 'The Cousins', whoHi: 'भाई-बहन',
+    msg: 'We have already booked the front row for the sangeet. No refunds. Congratulations.',
+    hi : 'संगीत की अगली कतार हमने अभी से बुक कर ली है। पैसे वापस नहीं होंगे। बधाई हो।' },
+  { who: 'Mrs. Iyer, Flat 4B', whoHi: 'श्रीमती अय्यर, फ्लैट 4बी',
+    msg: 'May your home always smell of something cooking and sound like someone laughing.',
+    hi : 'तुम्हारे घर से हमेशा कुछ पकने की खुशबू आती रहे और किसी की हँसी सुनाई देती रहे।' }
 ];
 
 const wall = $('#bl-wall');
 
-function loadBlessings(){
-  try { return JSON.parse(localStorage.getItem(BL_KEY)) || []; }
+/* Shown only on the writer's own copy, on their own device. Without it a
+   guest writes a blessing, sees it, and cannot understand why it is not on
+   their husband's phone — the wall looks broken rather than moderated. */
+const BL_WAIT = '<div class="bl-wait">' +
+  '<span class="i18n-en">Only you can see this — waiting to be approved</span>' +
+  '<span class="i18n-hi">अभी केवल आपको दिख रहा है — स्वीकृति की प्रतीक्षा में</span></div>';
+
+/* approved: the rows the couple has ticked off (null until the Sheet
+   answers, or if it cannot be reached). */
+let approved = null;
+
+function loadMine(){
+  try { const v = JSON.parse(localStorage.getItem(BL_KEY)); return Array.isArray(v) ? v : []; }
   catch { return []; }
 }
+function saveMine(list){
+  try { localStorage.setItem(BL_KEY, JSON.stringify(list)); } catch {}
+}
+
+async function fetchBlessings(){
+  if (!BL_URL) return null;
+  try {
+    const r = await fetch(BL_URL, { method: 'GET' });
+    const d = await r.json();
+    if (!d || !Array.isArray(d.blessings)) return null;
+    return { blessings: d.blessings, pending: Array.isArray(d.pending) ? d.pending : null };
+  } catch { return null; }
+}
+
+async function postBlessing(who, msg){
+  if (!BL_URL) return null;
+  try {
+    const r = await fetch(BL_URL, {
+      method: 'POST',
+      /* text/plain, not application/json, on purpose: anything else makes
+         this a "preflighted" cross-origin request, and an Apps Script web
+         app has no way to answer the OPTIONS call that precedes it — the
+         post would fail before it ever ran. The script JSON.parses the
+         body itself. */
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ who, msg })
+    });
+    const d = await r.json();
+    return (d && d.ok === true) ? d : null;
+  } catch { return null; }
+}
+
 function renderBlessings(){
-  const mine = loadBlessings();
-  const all = [...mine.slice().reverse(), ...SEED_BLESSINGS];
+  /* the guard against showing a blessing twice: anything of mine that has
+     come back approved is dropped from my local copy here, so it is only
+     ever rendered once — from whichever list it currently belongs to */
+  const live = new Set((approved || []).map(b => b.id).filter(Boolean));
+  const seen = new Set();
+  const mine = loadMine()
+    .filter(m => !live.has(m.id))
+    /* the Sheet answers a repeat submission with the id it already has,
+       so two local entries can end up pointing at one row — render the
+       first and drop the rest, or the writer sees their words twice */
+    .filter(m => !m.id || (!seen.has(m.id) && seen.add(m.id)))
+    .slice().reverse()
+    .map(m => ({ ...m, mine: true }));
+  const all = [...mine, ...(approved || []), ...SEED_BLESSINGS];
   wall.innerHTML = all.map((b, i) => `
     <article class="bl" style="animation-delay:${Math.min(i * 60, 420)}ms">
       <svg class="mark" viewBox="0 0 40 40"><use href="#ic-quote"/></svg>
-      <p></p><div class="who"></div>
+      <p></p><div class="who"></div>${b.mine ? BL_WAIT : ''}
     </article>`).join('');
   $$('.bl', wall).forEach((el, i) => {
-    el.querySelector('p').textContent = all[i].msg;
-    el.querySelector('.who').textContent = '— ' + all[i].who;
+    const b = all[i];
+    const p = el.querySelector('p'), w = el.querySelector('.who');
+    /* the seeded wishes carry a Hindi twin, so they follow the language
+       toggle like the rest of the page; a guest's own words are shown
+       exactly as they were typed, in whichever language they chose */
+    if (b.hi){
+      p.innerHTML = '<span class="i18n-en"></span><span class="i18n-hi"></span>';
+      p.children[0].textContent = b.msg;
+      p.children[1].textContent = b.hi;
+      w.innerHTML = '<span class="i18n-en"></span><span class="i18n-hi"></span>';
+      w.children[0].textContent = '— ' + b.who;
+      w.children[1].textContent = '— ' + (b.whoHi || b.who);
+    } else {
+      p.textContent = b.msg;
+      w.textContent = '— ' + b.who;
+    }
   });
 }
 renderBlessings();
 
-$('#bl-form').addEventListener('submit', e => {
+async function refreshBlessings(){
+  const d = await fetchBlessings();
+  if (!d) return;                       // unreachable: keep showing what we have
+  approved = d.blessings;
+  /* The Sheet also names the rows it is holding unapproved, and that is
+     the only list a guest's own copy needs to survive in. Once approved,
+     the blessing lives in the wall's own list and the local copy is just a
+     stale twin — one that would reappear wearing "waiting to be approved"
+     the next time the Sheet was unreachable. Once deleted, it should not
+     sit on that guest's page for good either. So: keep only what is still
+     waiting. Entries with no id never reached the Sheet, so they stay. */
+  if (d.pending){
+    const waiting = new Set(d.pending);
+    const mine = loadMine();
+    const kept = mine.filter(m => !m.id || waiting.has(m.id));
+    if (kept.length !== mine.length) saveMine(kept);
+  }
+  renderBlessings();
+}
+refreshBlessings();
+/* someone leaves the tab open through the wedding: pick up what arrived
+   while they were away, without polling in the background */
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) refreshBlessings();
+});
+
+$('#bl-form').addEventListener('submit', async e => {
   e.preventDefault();
   const who = $('#bl-name').value.trim();
   const msg = $('#bl-msg').value.trim();
   const err = $('#bl-err');
+  const btn = $('#bl-form button[type="submit"]');
   if (who.length < 2 || msg.length < 4){
     err.classList.add('on');
     (who.length < 2 ? $('#bl-name') : $('#bl-msg')).focus();
     return;
   }
   err.classList.remove('on');
-  const list = loadBlessings();
-  list.push({ who, msg, at: Date.now() });
-  try { localStorage.setItem(BL_KEY, JSON.stringify(list)); } catch {}
+
+  /* the local key is only how we find this entry again a moment from now,
+     to stamp the Sheet's id onto it — matching on who+msg would pick the
+     wrong one if a guest writes the same words twice */
+  const key = 'k' + Date.now() + Math.random().toString(36).slice(2, 8);
+  const entry = { key, who, msg, at: Date.now() };
   $('#bl-name').value = ''; $('#bl-msg').value = '';
+  saveMine([...loadMine(), entry]);
   renderBlessings();
   burstPetals(40);
+
+  if (!BL_URL) return;          // no Sheet configured yet: local only
+
+  btn.disabled = true;
+  const res = await postBlessing(who, msg);
+  btn.disabled = false;
+
+  if (res && res.id){
+    let list = loadMine();
+    const e = list.find(x => x.key === key);
+    if (e) e.id = res.id;
+    /* res.duplicate means the Sheet matched this to a row it already had,
+       so the entry just stamped is a second pointer to it — keep the
+       older one and forget this one, rather than storing both forever */
+    const seen = new Set();
+    list = list.filter(x => !x.id || (!seen.has(x.id) && seen.add(x.id)));
+    saveMine(list);
+    await refreshBlessings();
+  }
+  /* a failed post needs no handling: the entry is already saved locally
+     with no id, so it stays on this guest's page and is never pruned */
+  renderBlessings();
 });
 
 /* ══════════════════════════════════════════════════════════════════════
@@ -3988,7 +4192,7 @@ $('#ics-btn').addEventListener('click', downloadICS);
 
 $('#share-btn').addEventListener('click', async () => {
   const shareText = currentLang() === 'hi'
-    ? 'बादल और महिमा का विवाह हो रहा है — 24 नवंबर 2026, ओमी लाला फार्म हाउस, चंदौसी।'
+    ? 'बादल और महिमा विवाह-बंधन में बँध रहे हैं — 24 नवंबर 2026, ओमी लाला फार्म हाउस, चंदौसी। आप सादर आमंत्रित हैं।'
     : CONFIG.shareText;
   const data = { title: `${CONFIG.groom} & ${CONFIG.bride}`, text: shareText, url: location.href };
   if (navigator.share){
