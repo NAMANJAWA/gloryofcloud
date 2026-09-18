@@ -1543,6 +1543,17 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   margin-top:auto;padding-top:14px;font-family:var(--caps);font-size:.54rem;
   letter-spacing:.28em;text-transform:uppercase;color:var(--gold);
 }
+/* Everything past the first ten is folded away rather than left out of the
+   page: opening it is then a class change, so nothing already on screen
+   re-animates when the rest arrive. */
+.bl.folded{display:none}
+.bl-more-wrap{margin-top:30px;text-align:center}
+/* .btn is display:inline-flex, which would win over the browser's own
+   [hidden] rule and leave the button on the page with nothing left to open */
+#bl-more[hidden]{display:none}
+#bl-more .bl-more-n{
+  font-size:.6rem;letter-spacing:.14em;opacity:.75;
+}
 
 /* ══════════════════════════════════════════════════════════════════════
    18 · FORMS
@@ -3027,6 +3038,12 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
     </form>
 
     <div class="bl-wall" id="bl-wall"></div>
+    <div class="bl-more-wrap">
+      <button type="button" class="btn" id="bl-more" hidden>
+        <span class="i18n-en">Read more blessings</span><span class="i18n-hi">और आशीर्वाद पढ़ें</span>
+        <span class="bl-more-n" translate="no"></span>
+      </button>
+    </div>
   </div>
 </section>
 
@@ -4015,7 +4032,36 @@ function renderBlessings(){
     el.querySelector('p').textContent = b.msg;
     el.querySelector('.who').textContent = '— ' + b.who;
   });
+  applyBlMore();
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   By the last night this wall could be hundreds of cards long, and a
+   guest who has just written one should not have to scroll past everyone
+   else's to see the rest of the page. Only the first BL_PAGE stand open;
+   the rest are built into the page but folded, so opening them costs a
+   class and they animate in the way a fresh blessing does. It never
+   folds back — nobody opens a wall of good wishes to close it again.
+   ══════════════════════════════════════════════════════════════════════ */
+const BL_PAGE = 10;
+let blShown = BL_PAGE;
+const blMore = $('#bl-more');
+
+function applyBlMore(){
+  const cards = $$('.bl', wall);
+  cards.forEach((el, i) => el.classList.toggle('folded', i >= blShown));
+  if (!blMore) return;
+  const rest = cards.length - blShown;
+  blMore.hidden = rest <= 0;
+  const n = $('.bl-more-n', blMore);
+  if (n) n.textContent = rest > 0 ? '+' + rest : '';
+}
+
+if (blMore) blMore.addEventListener('click', () => {
+  blShown += BL_PAGE;
+  applyBlMore();
+});
+
 renderBlessings();
 
 async function refreshBlessings(){
