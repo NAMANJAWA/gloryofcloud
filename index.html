@@ -1264,7 +1264,10 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
    fill their row exactly and only the last day shows a gap. */
 .cer-days{text-align:left;margin-top:56px}
 .cer-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));
+  /* min() is what keeps this honest on a phone: a bare minmax(420px,1fr)
+     makes 420px a hard floor, so on a 360px screen every card stayed 420px
+     wide and the section's overflow-x:clip sliced the right edge off. */
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(min(420px,100%),1fr));
   gap:clamp(18px,2.6vw,30px);
 }
 
@@ -1654,6 +1657,12 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
   #lang-btn button{padding:11px 12px;font-size:.54rem}
 }
 @media (max-width:430px){
+  /* the card is now only as wide as the screen, so the generous desktop
+     gutters and the .3em tracking on the uppercase time line were eating
+     the little width that is left */
+  .cer-body{padding:20px 18px 24px}
+  .cer-time{letter-spacing:.22em}
+  .cer-dress{letter-spacing:.18em}
   .gal{gap:7px}
   .diya-shelf{gap:5px}
   .hero-meta{gap:8px;font-size:.55rem}
@@ -2713,22 +2722,22 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 <section id="ceremonies" class="section">
   <div class="wrap center">
     <span class="eyebrow-deva rv">॥ निमंत्रण पत्रिका ॥</span>
-    <span class="eyebrow rv d1"><span class="i18n-en">Three Days of Celebration</span><span class="i18n-hi">उत्सव के तीन दिन</span></span>
+    <span class="eyebrow rv d1" id="cer-eyebrow"><span class="i18n-en">Three Days of Celebration</span><span class="i18n-hi">उत्सव के तीन दिन</span></span>
     <h2 class="title rv d1">
       <span class="i18n-en">The <em>Ceremonies</em></span>
       <span class="i18n-hi">विवाह की <em>रस्में</em></span>
     </h2>
     <div class="gold-rule rv d2"><i></i></div>
-    <p class="lede rv d2">
+    <p class="lede rv d2" id="cer-lede">
       <span class="i18n-en">Come for one, come for all. Every hour of it is better with you in it.</span>
       <span class="i18n-hi">एक दिन आइए या तीनों दिन — हर घड़ी आपके साथ और सुंदर हो जाती है।</span>
     </p>
 
     <div class="cer-days">
-      <div class="cer-day-head rv">
+      <div class="cer-day-head rv" data-day="23">
         <h3><span class="i18n-en">Monday · 23 November</span><span class="i18n-hi">सोमवार · 23 नवंबर</span></h3><i></i>
       </div>
-      <div class="cer-grid">
+      <div class="cer-grid" data-day="23">
       <article class="cer rv d1" data-tilt data-lb="sc-haldi" data-cap="Haldi">
         <div class="cer-art"><svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice"><use href="#sc-haldi"/></svg></div>
         <div class="cer-body" style="text-align:left">
@@ -2762,10 +2771,10 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 
       </div>
 
-      <div class="cer-day-head rv">
+      <div class="cer-day-head rv" data-day="24">
         <h3><span class="i18n-en">Tuesday · 24 November</span><span class="i18n-hi">मंगलवार · 24 नवंबर</span></h3><i></i>
       </div>
-      <div class="cer-grid">
+      <div class="cer-grid" data-day="24">
       <article class="cer rv d3" data-tilt data-lb="sc-baraat" data-cap="Jaimala">
         <div class="cer-art"><svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice"><use href="#sc-baraat"/></svg></div>
         <div class="cer-body" style="text-align:left">
@@ -2796,10 +2805,10 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
 
       </div>
 
-      <div class="cer-day-head rv">
+      <div class="cer-day-head rv" data-day="25">
         <h3><span class="i18n-en">Wednesday · 25 November</span><span class="i18n-hi">बुधवार · 25 नवंबर</span></h3><i></i>
       </div>
-      <div class="cer-grid">
+      <div class="cer-grid" data-day="25">
       <article class="cer rv d2" data-tilt data-lb="sc-vidai" data-cap="Vidai">
         <div class="cer-art"><svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice"><use href="#sc-vidai"/></svg></div>
         <div class="cer-body" style="text-align:left">
@@ -2913,9 +2922,9 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
       <div class="vrow"><svg viewBox="0 0 24 24"><use href="#ic-car"/></svg>
         <div><b><span class="i18n-en">Arrival</span><span class="i18n-hi">आगमन</span></b><span class="i18n-en">Self-drive or taxi directly to the farm house — detailed directions to follow</span><span class="i18n-hi">अपनी गाड़ी से या टैक्सी लेकर सीधे फार्म हाउस पहुँचें — रास्ते की पूरी जानकारी जल्द भेज दी जाएगी</span></div></div>
       <div class="vrow"><svg viewBox="0 0 24 24"><use href="#ic-cal"/></svg>
-        <div><b><span class="i18n-en">Dates</span><span class="i18n-hi">तिथियां</span></b><span class="i18n-en">Monday 23 — Wednesday 25 November 2026</span><span class="i18n-hi">सोमवार 23 — बुधवार 25 नवंबर 2026</span></div></div>
+        <div><b><span class="i18n-en">Dates</span><span class="i18n-hi">तिथियां</span></b><span class="i18n-en" id="v-dates-en">Monday 23 — Wednesday 25 November 2026</span><span class="i18n-hi" id="v-dates-hi">सोमवार 23 — बुधवार 25 नवंबर 2026</span></div></div>
       <div class="vrow"><svg viewBox="0 0 24 24"><use href="#ic-clock"/></svg>
-        <div><b><span class="i18n-en">Key timings</span><span class="i18n-hi">मुख्य समय</span></b><span class="i18n-en">Haldi 12:00 PM · Engagement 7:00 PM · Jaimala 8:00 PM · Phere Midnight · Vidai — under the starlight</span><span class="i18n-hi">हल्दी दोपहर 12:00 · सगाई शाम 7:00 · जयमाला रात 8:00 · फेरे मध्यरात्रि · विदाई — तारों की छांव में</span></div></div>
+        <div><b><span class="i18n-en">Key timings</span><span class="i18n-hi">मुख्य समय</span></b><span class="i18n-en" id="v-times-en">Haldi 12:00 PM · Engagement 7:00 PM · Jaimala 8:00 PM · Phere Midnight · Vidai — under the starlight</span><span class="i18n-hi" id="v-times-hi">हल्दी दोपहर 12:00 · सगाई शाम 7:00 · जयमाला रात 8:00 · फेरे मध्यरात्रि · विदाई — तारों की छांव में</span></div></div>
       <div class="vrow"><svg viewBox="0 0 24 24"><use href="#ic-car"/></svg>
         <div><b><span class="i18n-en">Parking</span><span class="i18n-hi">पार्किंग</span></b><span class="i18n-en">On-site parking available</span><span class="i18n-hi">स्थल पर पार्किंग उपलब्ध है</span></div></div>
 
@@ -3149,6 +3158,155 @@ applyI18nAttrs();
 $$('#lang-btn button').forEach(b => {
   b.addEventListener('click', () => setLang(b.dataset.setLang));
 });
+
+/* ══════════════════════════════════════════════════════════════════════
+   0b · PER-GUEST INVITE  (?d= in the link)
+   One page, many invitations. The link decides which days a guest is
+   asked to; everything else on the page — the ceremony cards, the
+   eyebrow, the Dates and Key-timings rows, the countdown and the
+   Save-the-Date — follows whatever survives.
+
+       …/badal-mahima-wedding.html               → the wedding day (the default)
+       …/badal-mahima-wedding.html?d=24          → the wedding day
+       …/badal-mahima-wedding.html?d=all         → all three days
+       …/badal-mahima-wedding.html?d=23,24       → all three days (the close ones)
+       …/badal-mahima-wedding.html?d=23          → Haldi + Engagement only
+
+   Words work too, so a link can be readable: ?d=wedding, ?d=haldi,
+   ?d=both. ?days= and ?invite= are accepted as spellings of ?d=.
+   A bare link with no ?d= at all — and any link whose ?d= got mangled
+   in the forwarding — lands on INVITE.fallback below, so the safe,
+   smallest invitation is what a stray link gives away.
+   ══════════════════════════════════════════════════════════════════════ */
+const INVITE = {
+  // ✎ what a link with no ?d= (or an unreadable one) is invited to.
+  // Written in the same shorthand as the parameter itself.
+  fallback: '24',
+
+  // Vidai is the tail of the wedding night, so anyone asked to the 24th
+  // gets the 25th with it. Set this to false to keep the days strictly
+  // literal instead.
+  vidaiFollows24: true,
+
+  // ✎ readable aliases — add your own on the left, days on the right
+  aliases: {
+    all:['23','24','25'], full:['23','24','25'], everything:['23','24','25'],
+    both:['23','24'], close:['23','24'], family:['23','24'],
+    haldi:['23'], sagai:['23'], engagement:['23'], roka:['23'],
+    wedding:['24'], shaadi:['24'], vivah:['24'], jaimala:['24'], phere:['24'],
+    vidai:['25'], vidaai:['25']
+  }
+};
+
+const DAY_META = {
+  '23':{
+    shortEn:'Monday 23', shortHi:'सोमवार 23',
+    timesEn:'Haldi 12:00 PM · Engagement 7:00 PM',
+    timesHi:'हल्दी दोपहर 12:00 · सगाई शाम 7:00',
+    muhurat:'2026-11-23T12:00:00+05:30',
+    icsStartUTC:'20261123T063000Z', icsEndUTC:'20261123T160000Z'
+  },
+  '24':{
+    shortEn:'Tuesday 24', shortHi:'मंगलवार 24',
+    timesEn:'Jaimala 8:00 PM · Phere Midnight',
+    timesHi:'जयमाला रात 8:00 · फेरे मध्यरात्रि',
+    muhurat: CONFIG.muhurat,
+    icsStartUTC: CONFIG.icsStartUTC, icsEndUTC: CONFIG.icsEndUTC
+  },
+  '25':{
+    shortEn:'Wednesday 25', shortHi:'बुधवार 25',
+    timesEn:'Vidai — under the starlight',
+    timesHi:'विदाई — तारों की छांव में',
+    muhurat:'2026-11-25T05:00:00+05:30',
+    icsStartUTC:'20261124T233000Z', icsEndUTC:'20261125T023000Z'
+  }
+};
+const ALL_DAYS = ['23','24','25'];
+
+/* Turn one ?d= value into a list of days. Empty when nothing in it read
+   as a day, so the caller can fall back rather than guess. */
+function readDays(raw){
+  const picked = new Set();
+  // split on anything that isn't a letter or a digit, so 23,24 / 23+24 /
+  // 23-24 / "23 24" all mean the same thing
+  String(raw || '').trim().toLowerCase().split(/[^a-z0-9]+/).filter(Boolean).forEach(tok => {
+    if (ALL_DAYS.includes(tok)) picked.add(tok);
+    else if (INVITE.aliases[tok]) INVITE.aliases[tok].forEach(d => picked.add(d));
+  });
+  if (INVITE.vidaiFollows24 && picked.has('24')) picked.add('25');
+  return ALL_DAYS.filter(d => picked.has(d));
+}
+
+/* Read the link and work out which days this guest is asked to. */
+function inviteDays(){
+  let raw = '';
+  try {
+    const q = new URLSearchParams(location.search);
+    raw = q.get('d') || q.get('days') || q.get('invite') || '';
+  } catch(e){}
+
+  // the link, then the fallback, then — if even that was edited into
+  // nonsense — everything, so nobody ever lands on an empty page
+  const days = readDays(raw);
+  if (days.length) return days;
+  const dflt = readDays(INVITE.fallback);
+  return dflt.length ? dflt : ALL_DAYS.slice();
+}
+
+function applyInvite(){
+  const days = inviteDays();
+  document.documentElement.setAttribute('data-invite', days.join('-'));
+  if (days.length === ALL_DAYS.length) return;    // nothing to trim
+
+  /* ── the ceremony cards: drop the days this guest isn't asked to.
+     Removed rather than hidden, so the reveal observer and the
+     ".cer-grid + .cer-day-head" spacing rule both stay honest. ── */
+  $$('#ceremonies [data-day]').forEach(el => {
+    if (!days.includes(el.dataset.day)) el.remove();
+  });
+
+  /* ── the eyebrow above the heading counts the days ── */
+  const eyebrow = $('#cer-eyebrow');
+  if (eyebrow){
+    const en = days.length === 1 ? 'A Day of Celebration' : 'Two Days of Celebration';
+    const hi = days.length === 1 ? 'उत्सव का एक दिन'      : 'उत्सव के दो दिन';
+    $('.i18n-en', eyebrow).textContent = en;
+    $('.i18n-hi', eyebrow).textContent = hi;
+  }
+
+  /* ── "come for one, come for all" only reads right at three days ── */
+  const lede = $('#cer-lede');
+  if (lede){
+    const en = days.length === 1
+      ? 'One day, and one we would very much like you in. It would not be the same without you.'
+      : 'Come for one, come for both. Every hour of it is better with you in it.';
+    const hi = days.length === 1
+      ? 'एक ही दिन — पर वह दिन आपके बिना अधूरा रहेगा। आपका आना ही इसे पूरा करेगा।'
+      : 'एक दिन आइए या दोनों दिन — हर घड़ी आपके साथ और सुंदर हो जाती है।';
+    $('.i18n-en', lede).textContent = en;
+    $('.i18n-hi', lede).textContent = hi;
+  }
+
+  /* ── the Dates and Key-timings rows beside the map ── */
+  const first = DAY_META[days[0]], last = DAY_META[days[days.length - 1]];
+  const setTxt = (id, txt) => { const el = $(id); if (el) el.textContent = txt; };
+  setTxt('#v-dates-en', days.length === 1
+    ? first.shortEn + ' November 2026'
+    : first.shortEn + ' — ' + last.shortEn + ' November 2026');
+  setTxt('#v-dates-hi', days.length === 1
+    ? first.shortHi + ' नवंबर 2026'
+    : first.shortHi + ' — ' + last.shortHi + ' नवंबर 2026');
+  setTxt('#v-times-en', days.map(d => DAY_META[d].timesEn).join(' · '));
+  setTxt('#v-times-hi', days.map(d => DAY_META[d].timesHi).join(' · '));
+
+  /* ── the countdown and Save-the-Date point at the first day this
+     guest is actually asked to. CONFIG is edited in place and read
+     later by both, so the two can still never drift apart. ── */
+  CONFIG.muhurat     = first.muhurat;
+  CONFIG.icsStartUTC = first.icsStartUTC;
+  CONFIG.icsEndUTC   = DAY_META[days[days.length - 1]].icsEndUTC;
+}
+applyInvite();
 
 /* ══════════════════════════════════════════════════════════════════════
    1 · GENERATIVE MANDALAS
