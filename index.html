@@ -2629,8 +2629,8 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
         <div class="person-name" translate="no"><span class="i18n-en">Badal</span><span class="i18n-hi">बादल</span></div>
         <div class="person-role"><span class="i18n-en">The Groom</span><span class="i18n-hi">वर</span></div>
         <p class="person-fam" translate="no">
-          <span class="i18n-en">Son of</span><span class="i18n-hi">सुपुत्र</span><br><b>Smt. Abha Gupta &amp; Shri Rajeev Gupta</b><br><br>
-          <span class="i18n-en">Grandson of</span><span class="i18n-hi">पौत्र</span><br><b>Late Smt. Maya Devi &amp; Shri Krishan Bajaj</b>
+          <span class="i18n-en">Son of</span><span class="i18n-hi">सुपुत्र</span><br><b><span class="i18n-en">Smt. Abha Gupta &amp; Shri Rajeev Gupta</span><span class="i18n-hi">श्रीमती आभा गुप्ता एवं श्री राजीव गुप्ता</span></b><br><br>
+          <span class="i18n-en">Grandson of</span><span class="i18n-hi">पौत्र</span><br><b><span class="i18n-en">Late Smt. Maya Devi &amp; Shri Krishan Bajaj</span><span class="i18n-hi">स्व. श्रीमती माया देवी एवं श्री कृष्ण बजाज</span></b>
         </p>
         <p class="person-quote">
           <span class="i18n-en">“He keeps every promise he makes, including the quiet ones.”</span>
@@ -2652,8 +2652,8 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
         <div class="person-name" translate="no"><span class="i18n-en">Mahima</span><span class="i18n-hi">महिमा</span></div>
         <div class="person-role"><span class="i18n-en">The Bride</span><span class="i18n-hi">वधू</span></div>
         <p class="person-fam" translate="no">
-          <span class="i18n-en">Daughter of</span><span class="i18n-hi">सुपुत्री</span><br><b>Smt. Sneh Jawa &amp; Shri Anubh Jawa</b><br><br>
-          <span class="i18n-en">Granddaughter of</span><span class="i18n-hi">पौत्री</span><br><b>Smt. Shakun Jawa &amp; Late Shri Harish Chandra Jawa</b>
+          <span class="i18n-en">Daughter of</span><span class="i18n-hi">सुपुत्री</span><br><b><span class="i18n-en">Smt. Sneh Jawa &amp; Shri Anubh Jawa</span><span class="i18n-hi">श्रीमती स्नेह जावा एवं श्री अनुभ जावा</span></b><br><br>
+          <span class="i18n-en">Granddaughter of</span><span class="i18n-hi">पौत्री</span><br><b><span class="i18n-en">Smt. Shakun Jawa &amp; Late Shri Harish Chandra Jawa</span><span class="i18n-hi">श्रीमती शकुन जावा एवं स्व. श्री हरीश चंद्र जावा</span></b>
         </p>
         <p class="person-quote">
           <span class="i18n-en">“She walks into a room and the room decides to be happier.”</span>
@@ -2943,7 +2943,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
         <span class="i18n-en">Reach out to us and we'll help you plan the easiest way in, whether by road, rail, or air.</span>
         <span class="i18n-hi">हमें बताइए — सड़क, रेल या हवाई, जिस भी रास्ते आना हो, सबसे आसान तरीका हम बता देंगे।</span>
       </p></div>
-    <div class="travel-c rv d2"><h4><span class="i18n-en">Where to Stay</span><span class="i18n-hi">कहाँ ठहरें</span></h4>
+    <div class="travel-c rv d2" id="stay-card"><h4><span class="i18n-en">Where to Stay</span><span class="i18n-hi">कहाँ ठहरें</span></h4>
       <p>
         <span class="i18n-en">Let us know if you need help arranging a place to stay nearby —
         mention "Badal &amp; Mahima" when booking, or ask us and we will arrange it.</span>
@@ -3076,10 +3076,7 @@ html[data-lang="en"] #lang-btn button[data-set-lang="en"]{
     <span><span class="i18n-en">Bride's side —</span><span class="i18n-hi">वधू पक्ष —</span> <a href="tel:+919837076014">+91 98370 76014</a></span>
   </div>
 
-  <p class="f-copy">
-    <span class="i18n-en">Every line, lamp and mandala on this page was drawn in code</span>
-    <span class="i18n-hi">इस पन्ने की हर रेखा, हर दीप और हर मंडल कोड से बना है</span>
-    &nbsp;·&nbsp; ॐ</p>
+  <p class="f-copy">ॐ</p>
 </footer>
 
 <!-- ══════════════════ LIGHTBOX ══════════════════ -->
@@ -3256,6 +3253,18 @@ function inviteDays(){
 function applyInvite(){
   const days = inviteDays();
   document.documentElement.setAttribute('data-invite', days.join('-'));
+
+  /* ── "Where to Stay" only means something to a guest who is staying the
+     night. A wedding-day invitation (the ?d=24 default, Jaimala through
+     Vidai) is one evening that runs into the morning — nobody books a room
+     for it. It comes back the moment the 23rd is in the invitation, which
+     is the first day that asks a guest to arrive and stay over. Removed
+     rather than hidden so the .travel grid re-flows to two even cards. ── */
+  if (!days.includes('23')){
+    const stay = $('#stay-card');
+    if (stay) stay.remove();
+  }
+
   if (days.length === ALL_DAYS.length) return;    // nothing to trim
 
   /* ── the ceremony cards: drop the days this guest isn't asked to.
@@ -4207,3 +4216,4 @@ console.log('%cBadal & Mahima · 24 November 2026 · Omi Lala Farm House, Chanda
 </body>
 </html>
 
+  
